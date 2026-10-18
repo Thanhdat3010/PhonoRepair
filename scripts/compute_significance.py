@@ -1,8 +1,10 @@
 import json
+import os
 import torch
 import soundfile as sf
 import numpy as np
 from scipy import stats
+from datasets import load_dataset
 from transformers import AutoProcessor, AutoModelForSpeechSeq2Seq
 
 from phonorepair.artifacts.schema import load_artifact
@@ -21,13 +23,27 @@ def compute_statistical_significance():
     processor = AutoProcessor.from_pretrained("openai/whisper-base.en")
     model = AutoModelForSpeechSeq2Seq.from_pretrained("openai/whisper-base.en").to(device)
 
-    # Load 50 real UASpeech samples (Very Low / Low intelligibility)
+    # Load 50 real UASpeech samples (Very Low / Low intelligibility) via streaming
+    print("[*] Loading 50 real UASpeech dysarthric utterances ('extraordinarylab/ua-speech')...")
+    ds = load_dataset("extraordinarylab/ua-speech", split="test", streaming=True)
     records = []
-    with open("data/manifests/uaspeech_eval_full.jsonl", "r", encoding="utf-8") as f:
-        for line in f:
-            r = json.loads(line)
-            if r.get("intelligibility") in ["Very low", "Low"]:
-                records.append(r)
+    for item in ds:
+        sev = str(item.get("severity", "")).lower()
+        if sev in ["very low", "low"]:
+            spk = item.get("speaker", "unknown")
+            text = item.get("text", "")
+            norm_text = normalize_text_v1(text)
+            if not norm_text:
+                continue
+            audio_arr = item["audio"]["array"]
+            sr = item["audio"]["sampling_rate"]
+            records.append({
+                "audio": audio_arr,
+                "sr": sr,
+                "text": norm_text,
+                "speaker": spk,
+                "severity": sev
+            })
             if len(records) >= 50:
                 break
 
@@ -35,15 +51,16 @@ def compute_statistical_significance():
 
     eval_items = []
     for r in records:
-        audio, sr = sf.read(r["audio_path"])
+        audio = r["audio"]
         if audio.ndim > 1:
             audio = np.mean(audio, axis=1)
-        ref_norm = normalize_text_v1(r["text"])
+        ref_norm = r["text"]
         inputs = processor(audio, sampling_rate=16000, return_tensors="pt")
         feat = inputs.input_features.to(device)
-        eval_items.append((feat, ref_norm, r.get("speaker_id", "unknown")))
+        eval_items.append((feat, ref_norm, r["speaker"]))
 
     # 1. Native Baseline
+    print("[*] Evaluating Native Whisper baseline...")
     base_counts = []
     base_errors = []
     base_lengths = []
@@ -53,14 +70,14 @@ def compute_statistical_significance():
             hyp = normalize_text_v1(processor.batch_decode(out_ids, skip_special_tokens=True)[0])
             c = compute_wer_counts(ref.split(), hyp.split())
             base_counts.append(c)
-            # sentence error rate
-            ref_len = max(1, len(ref.split()))
-            base_lengths.append(ref_len)
-            base_errors.append(c["errors"])
+            base_errors.append(c.total_errors)
+            base_lengths.append(c.num_reference_words)
 
     base_wer = compute_corpus_wer(base_counts) * 100.0
+    print(f"[+] Native Baseline WER: {base_wer:.2f}%")
 
     # 2. PhonoRepair Peak Configuration: q_off=14.0, upper=24.0, margin=0.20, alpha=0.80
+    print("[*] Evaluating PhonoRepair Peak Configuration (14.0, 24.0, 0.20, 0.80)...")
     Q = artifact.Q.to(device)
     mu = artifact.mu.to(device)
     anchors = artifact.anchors.to(device)
@@ -133,7 +150,7 @@ def compute_statistical_significance():
             hyp = normalize_text_v1(processor.batch_decode(out_ids, skip_special_tokens=True)[0])
             c = compute_wer_counts(ref.split(), hyp.split())
             rep_counts.append(c)
-            rep_errors.append(c["errors"])
+            rep_errors.append(c.total_errors)
 
     binding.detach_hook()
     rep_wer = compute_corpus_wer(rep_counts) * 100.0
@@ -147,14 +164,13 @@ def compute_statistical_significance():
 
     if len(non_zero_diffs) > 0:
         wilcoxon_res = stats.wilcoxon(diffs, alternative="less", zero_method="pratt")
-        p_val = wilcoxon_res.pvalue
-        stat_val = wilcoxon_res.statistic
+        p_val = float(wilcoxon_res.pvalue)
+        stat_val = float(wilcoxon_res.statistic)
     else:
         p_val = 1.0
         stat_val = 0.0
 
     # B. Paired Clustered Bootstrap 95% CI (10,000 resamples)
-    # Cluster by speaker
     speakers = [item[2] for item in eval_items]
     unique_spks = list(set(speakers))
     N_BOOT = 10000
@@ -205,6 +221,7 @@ def compute_statistical_significance():
     print("=" * 70)
 
     # Save output json
+    os.makedirs("outputs/reports", exist_ok=True)
     out_dict = {
         "dataset": "UASpeech",
         "sample_count": len(eval_items),
@@ -212,8 +229,8 @@ def compute_statistical_significance():
         "repaired_wer": rep_wer,
         "delta_wer": rep_wer - base_wer,
         "werr": werr,
-        "wilcoxon_statistic": float(stat_val),
-        "wilcoxon_p_value": float(p_val),
+        "wilcoxon_statistic": stat_val,
+        "wilcoxon_p_value": p_val,
         "bootstrap_ci_95": [ci_lower, ci_upper],
         "is_statistically_significant": bool(p_val < 0.05 and ci_upper < 0.0)
     }
