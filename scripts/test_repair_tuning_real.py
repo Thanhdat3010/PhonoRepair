@@ -66,16 +66,18 @@ def test_tuning_on_gpu():
     patch_labels = artifact.patch_labels.to(device)
     num_classes = artifact.num_classes
 
+    from phonorepair.binding.whisper import WhisperBinding
+    binding = WhisperBinding()
+
     # Define repair hook function generator
     def run_repair_experiment(q_off_val, upper_val, margin_val, alpha_blend):
         rep_counts = []
         total_accepted = 0
         total_frames = 0
 
-        def repair_hook(module, inputs, outputs):
+        def repair_callback(h_seq: torch.Tensor) -> torch.Tensor:
             nonlocal total_accepted, total_frames
-            h_seq = outputs[0] if isinstance(outputs, tuple) else outputs
-            # shape (batch, T, d)
+            # h_seq is shape (B, T, d)
             B, T, d = h_seq.shape
             total_frames += B * T
             h_flat = h_seq.reshape(-1, d)
@@ -87,7 +89,7 @@ def test_tuning_on_gpu():
             # Upgraded routing condition:
             # 1. d1 > q_off_val (needs correction)
             # 2. d1 <= upper_val (within reach)
-            # 3. Margin check: (d2 - d1) >= margin_val OR relative ratio d1 / (d2 + 1e-4) <= (1 - rel_margin)
+            # 3. Margin check: (d2 - d1) >= margin_val
             needs_corr = (d1 > q_off_val) & (d1 <= upper_val)
             gap = d2 - d1
             unambiguous = gap >= margin_val
@@ -97,7 +99,7 @@ def test_tuning_on_gpu():
             total_accepted += num_acc
 
             if num_acc == 0:
-                return outputs
+                return h_seq
 
             # Project accepted frames
             accepted_indices = torch.nonzero(accept_mask, as_tuple=True)[0]
@@ -130,13 +132,10 @@ def test_tuning_on_gpu():
                     h_hat = lift_coordinates(target_p, u_t, h_t, Q)
                     h_out_flat[flat_idx] = h_hat
 
-            h_repaired = h_out_flat.reshape(B, T, d)
-            if isinstance(outputs, tuple):
-                return (h_repaired,) + outputs[1:]
-            return h_repaired
+            return h_out_flat.reshape(B, T, d)
 
-        # Attach hook to Whisper encoder
-        handle = model.model.encoder.register_forward_hook(repair_hook)
+        # Attach hook using official WhisperBinding
+        binding.attach_hook(model, repair_callback)
 
         with torch.no_grad():
             for feat, ref in eval_items:
@@ -144,7 +143,7 @@ def test_tuning_on_gpu():
                 hyp = normalize_text_v1(processor.batch_decode(out_ids, skip_special_tokens=True)[0])
                 rep_counts.append(compute_wer_counts(ref.split(), hyp.split()))
 
-        handle.remove()
+        binding.detach_hook()
         rep_wer = compute_corpus_wer(rep_counts) * 100.0
         werr = ((base_wer - rep_wer) / base_wer * 100.0) if base_wer > 0 else 0.0
         acc_pct = (total_accepted / max(1, total_frames)) * 100.0
