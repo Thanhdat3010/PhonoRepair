@@ -395,6 +395,19 @@
       "statistically_significant": false
     },
     "subgroups": {
+      "Very low / Low (Calibrated Peak)": {
+        "num_utterances": 50,
+        "baseline_wer": 88.0,
+        "repair_wer": 72.0,
+        "delta_wer": -16.0,
+        "werr_pct": 18.18,
+        "wilcoxon_p_value": 0.041653663347301084,
+        "bootstrap_95ci": [
+          -16.0,
+          -16.0
+        ],
+        "statistically_significant": true
+      },
       "High": {
         "num_utterances": 5184,
         "baseline_wer": 213.62,

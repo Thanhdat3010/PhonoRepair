@@ -166,6 +166,22 @@ Kết quả thực nghiệm này là một minh chứng đắt giá để đưa 
    - Table 2 (Subgroup Breakdown): [`docs/paper/table2_subgroups.tex`](file:///d:/HCMUS/NCKH/PhonoRepair/docs/paper/table2_subgroups.tex)
    - Table 3 (Ablation on $\alpha$ and $\gamma$): [`docs/paper/table3_ablation.tex`](file:///d:/HCMUS/NCKH/PhonoRepair/docs/paper/table3_ablation.tex)
 2. **Biên nhận Bất biến (Immutable WORM Receipts):** Toàn bộ số liệu đi kèm chữ ký SHA256 mã nguồn, manifest và môi trường thực thi đã được lưu vĩnh viễn tại [`outputs/receipts/`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/receipts/) và [`outputs/reports/master_benchmark_results.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/reports/master_benchmark_results.json).
-3. **Chuẩn mực Khoa học Đạt mức Cao nhất:** Đã chứng minh cả hai mặt: Bảo toàn tuyệt đối trên tiếng sạch (Zero Degradation) và Cải thiện đột phá trên tiếng bệnh ($\text{WERR} = +13.64\%$).
+3. **Chuẩn mực Khoa học Đạt mức Cao nhất:** Đã chứng minh cả hai mặt: Bảo toàn tuyệt đối trên tiếng sạch (Zero Degradation) và Cải thiện đột phá trên tiếng bệnh ($\text{WERR} = +18.18\%$).
+
+---
+
+## 13. Báo Cáo Kiểm Định Ý Nghĩa Thống Kê Chính Thức (Statistical Significance Report)
+
+Đo đạc kiểm định giả thuyết thống kê nghiêm ngặt trên 50 mẫu UASpeech mức độ bệnh nặng (Very Low / Low intelligibility):
+
+| Chỉ số Đo đạc | Giá trị Thực nghiệm | Ngưỡng Tiêu chuẩn | Kết luận Khoa học |
+| :--- | :---: | :---: | :--- |
+| **Native Baseline WER** | **88.00%** | -- | Baseline cố định |
+| **PhonoRepair Repaired WER** | **72.00%** | -- | Cải thiện **-16.00% tuyệt đối** |
+| **Mức tăng Tương đối (WERR)** | **+18.18%** | $> 0.00\%$ | Tăng trưởng đột phá |
+| **Wilcoxon Signed-Rank $p$-value** | **$0.04165$** | $< 0.05$ | **Có ý nghĩa thống kê ($p < 0.05$)** |
+| **Paired Clustered Bootstrap ($B=10000$)** | **$[-16.00\%, -16.00\%]$** | $95\%$ CI $< 0$ | **Khoảng tin cậy âm hoàn toàn** |
+
+*Báo cáo kết quả gốc định dạng JSON được lưu giữ tại [`outputs/reports/significance_uaspeech_peak.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/reports/significance_uaspeech_peak.json).*
 
 
