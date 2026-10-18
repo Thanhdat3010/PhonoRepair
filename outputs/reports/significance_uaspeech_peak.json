@@ -1,0 +1,15 @@
+{
+  "dataset": "UASpeech",
+  "sample_count": 50,
+  "baseline_wer": 88.0,
+  "repaired_wer": 72.0,
+  "delta_wer": -16.0,
+  "werr": 18.181818181818183,
+  "wilcoxon_statistic": 0.0,
+  "wilcoxon_p_value": 0.041653663347301084,
+  "bootstrap_ci_95": [
+    -16.0,
+    -16.0
+  ],
+  "is_statistically_significant": true
+}
