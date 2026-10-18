@@ -27,7 +27,10 @@ data/processed/audio/
 checkpoints/
 outputs/artifacts/*
 !outputs/artifacts/*.pt
-outputs/reports/
+outputs/reports/*
+!outputs/reports/master_benchmark_results.json
+!outputs/receipts/
+!outputs/receipts/**
 !outputs/locks/
 !outputs/locks/**
 results/
