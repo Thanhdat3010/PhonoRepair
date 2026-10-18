@@ -1,0 +1,13 @@
+\begin{table*}[t]
+\centering
+\caption{Main recognition performance across frozen ASR backbones on clean and dysarthric speech benchmarks. * denotes statistical significance ($p < 0.05$ under paired cluster bootstrap).}
+\label{tab:main_results}
+\begin{tabular}{llccccc}
+\toprule
+\textbf{Backbone} & \textbf{Method} & \textbf{LibriSpeech (Clean) $\downarrow$} & \textbf{UASpeech $\downarrow$} & \textbf{UASpeech WERR $\uparrow$} & \textbf{TORGO $\downarrow$} & \textbf{TORGO WERR $\uparrow$} \\
+\midrule
+\textbf{Whisper-base} & Native Baseline & 4.83 & 131.03 & -- & 57.02 & -- \\
+ & PhonoRepair (Ours) & 4.84 & 131.02 & -- & 57.02 & -- \\
+\bottomrule
+\end{tabular}
+\end{table*}

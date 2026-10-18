@@ -1,0 +1,561 @@
+{
+  "clean": {
+    "timestamp_utc": "2026-10-18T07:17:32.466261+00:00",
+    "manifest_evaluated": "librispeech_test_clean_full.jsonl",
+    "manifest_sha256": "2fbaa65934c9f25bf19084bc267d54b6c6ebc4994acd3223a60fead8f848bb4b",
+    "model_backbone": "openai/whisper-base.en",
+    "provenance": {
+      "git_commit": "16e777b544f691952969ccd45aa17b89373ff101",
+      "code_bundle_sha256": "f7666bbc2ec277b27c684de9a7488c2470213abb0adff3900bac9c8504faadf0",
+      "artifact_checksum": "7cd7ddd66db9c914e772fbc170b510ddebdde79b0f4bdf090a54bbc2a239c6a7",
+      "platform": "Linux-5.15.0-131-generic-x86_64-with-glibc2.31",
+      "python_version": "3.10.22",
+      "torch_version": "2.5.1+cu121",
+      "cuda_device_name": "Quadro RTX 6000"
+    },
+    "overall_metrics": {
+      "num_utterances": 2620,
+      "elapsed_seconds": 668.53,
+      "latency_ms_per_utterance": 255.16,
+      "baseline_corpus_wer": 4.83,
+      "repair_corpus_wer": 4.84,
+      "delta_wer": 0.01,
+      "werr_pct": -0.28,
+      "wilcoxon_p_value": 0.1570614822063541,
+      "bootstrap_delta_mean": 0.01,
+      "bootstrap_95ci": [
+        -0.0,
+        0.03
+      ],
+      "statistically_significant": false
+    },
+    "subgroups": {
+      "Control": {
+        "num_utterances": 2620,
+        "baseline_wer": 4.83,
+        "repair_wer": 4.84,
+        "delta_wer": 0.01,
+        "werr_pct": -0.28
+      }
+    },
+    "gate_diagnostics": {
+      "total_frames": 3930000.0,
+      "accepted_frames": 3590.0,
+      "acceptance_rate_pct": 0.09134860050890585,
+      "total_utterances": 2620.0,
+      "corrected_utterances": 0.0,
+      "harmed_utterances": 0.0,
+      "both_correct": 1448.0,
+      "both_error": 1172.0,
+      "unchanged_hypothesis_pct": 99.61832061068702,
+      "reasons_breakdown": {
+        "below_q_off_identity": 3910557,
+        "accepted": 3590,
+        "feasible_ambiguous_multiple": 13601,
+        "feasible_empty": 2252
+      }
+    },
+    "utterance_samples": [
+      {
+        "utterance_id": "1089-134686-0000",
+        "speaker_id": "1089",
+        "intelligibility": "Control",
+        "task_type": "sentence",
+        "reference": "he hoped there would be stew for dinner turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick peppered flour fattened sauce",
+        "native_hypothesis": "he hoped there would be stew for dinner turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick peppered flower faten sauce",
+        "repair_hypothesis": "he hoped there would be stew for dinner turnips and carrots and bruised potatoes and fat mutton pieces to be ladled out in thick peppered flower faten sauce",
+        "native_wer": 7.14,
+        "repair_wer": 7.14,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "1089-134686-0001",
+        "speaker_id": "1089",
+        "intelligibility": "Control",
+        "task_type": "sentence",
+        "reference": "stuff it into you his belly counselled him",
+        "native_hypothesis": "stuffered into you his belly counseled him",
+        "repair_hypothesis": "stuffered into you his belly counseled him",
+        "native_wer": 37.5,
+        "repair_wer": 37.5,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "1089-134686-0002",
+        "speaker_id": "1089",
+        "intelligibility": "Control",
+        "task_type": "sentence",
+        "reference": "after early nightfall the yellow lamps would light up here and there the squalid quarter of the brothels",
+        "native_hypothesis": "after early nightfall the yellow lamps would light up here and there the squalid quarter of the brothels",
+        "repair_hypothesis": "after early nightfall the yellow lamps would light up here and there the squalid quarter of the brothels",
+        "native_wer": 0.0,
+        "repair_wer": 0.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "1089-134686-0003",
+        "speaker_id": "1089",
+        "intelligibility": "Control",
+        "task_type": "sentence",
+        "reference": "hello bertie any good in your mind",
+        "native_hypothesis": "hello bertie any good in your mind",
+        "repair_hypothesis": "hello bertie any good in your mind",
+        "native_wer": 0.0,
+        "repair_wer": 0.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "1089-134686-0004",
+        "speaker_id": "1089",
+        "intelligibility": "Control",
+        "task_type": "sentence",
+        "reference": "number ten fresh nelly is waiting on you good night husband",
+        "native_hypothesis": "number 10 fresh nelly is waiting on you good night husband",
+        "repair_hypothesis": "number 10 fresh nelly is waiting on you good night husband",
+        "native_wer": 9.09,
+        "repair_wer": 9.09,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "1089-134686-0005",
+        "speaker_id": "1089",
+        "intelligibility": "Control",
+        "task_type": "sentence",
+        "reference": "the music came nearer and he recalled the words the words of shelley's fragment upon the moon wandering companionless pale for weariness",
+        "native_hypothesis": "the music came nearer and he recalled the words the words of shelley's fragment upon the moon wandering companionless pale for weariness",
+        "repair_hypothesis": "the music came nearer and he recalled the words the words of shelley's fragment upon the moon wandering companionless pale for weariness",
+        "native_wer": 0.0,
+        "repair_wer": 0.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "1089-134686-0006",
+        "speaker_id": "1089",
+        "intelligibility": "Control",
+        "task_type": "sentence",
+        "reference": "the dull light fell more faintly upon the page whereon another equation began to unfold itself slowly and to spread abroad its widening tail",
+        "native_hypothesis": "the dull light fell more faintly upon the page where on another equation began to unfold itself slowly and to spread abroad its widening tail",
+        "repair_hypothesis": "the dull light fell more faintly upon the page where on another equation began to unfold itself slowly and to spread abroad its widening tail",
+        "native_wer": 8.33,
+        "repair_wer": 8.33,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "1089-134686-0007",
+        "speaker_id": "1089",
+        "intelligibility": "Control",
+        "task_type": "sentence",
+        "reference": "a cold lucid indifference reigned in his soul",
+        "native_hypothesis": "a cold lucid indifference reigned in his soul",
+        "repair_hypothesis": "a cold lucid indifference reigned in his soul",
+        "native_wer": 0.0,
+        "repair_wer": 0.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "1089-134686-0008",
+        "speaker_id": "1089",
+        "intelligibility": "Control",
+        "task_type": "sentence",
+        "reference": "the chaos in which his ardour extinguished itself was a cold indifferent knowledge of himself",
+        "native_hypothesis": "the chaos in which his order extinguished itself was a cold indifferent knowledge of himself",
+        "repair_hypothesis": "the chaos in which his order extinguished itself was a cold indifferent knowledge of himself",
+        "native_wer": 6.67,
+        "repair_wer": 6.67,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "1089-134686-0009",
+        "speaker_id": "1089",
+        "intelligibility": "Control",
+        "task_type": "sentence",
+        "reference": "at most by an alms given to a beggar whose blessing he fled from he might hope wearily to win for himself some measure of actual grace",
+        "native_hypothesis": "at most by an alms given to a beggar whose blessing he fled from he might hope wearily to win for himself some measure of actual grace",
+        "repair_hypothesis": "at most by an alms given to a beggar whose blessing he fled from he might hope wearily to win for himself some measure of actual grace",
+        "native_wer": 0.0,
+        "repair_wer": 0.0,
+        "exact_match": true
+      }
+    ]
+  },
+  "torgo": {
+    "timestamp_utc": "2026-10-18T07:31:54.457603+00:00",
+    "manifest_evaluated": "torgo_eval_full.jsonl",
+    "manifest_sha256": "d68dc45b1e27abb757fbf55dd2481db26ab8eef6d72f7892ff9453cae8bd8741",
+    "model_backbone": "openai/whisper-base.en",
+    "provenance": {
+      "git_commit": "16e777b544f691952969ccd45aa17b89373ff101",
+      "code_bundle_sha256": "f7666bbc2ec277b27c684de9a7488c2470213abb0adff3900bac9c8504faadf0",
+      "artifact_checksum": "7cd7ddd66db9c914e772fbc170b510ddebdde79b0f4bdf090a54bbc2a239c6a7",
+      "platform": "Linux-5.15.0-131-generic-x86_64-with-glibc2.31",
+      "python_version": "3.10.22",
+      "torch_version": "2.5.1+cu121",
+      "cuda_device_name": "Quadro RTX 6000"
+    },
+    "overall_metrics": {
+      "num_utterances": 7855,
+      "elapsed_seconds": 859.22,
+      "latency_ms_per_utterance": 109.39,
+      "baseline_corpus_wer": 57.02,
+      "repair_corpus_wer": 57.02,
+      "delta_wer": 0.0,
+      "werr_pct": 0.0,
+      "wilcoxon_p_value": 1.0,
+      "bootstrap_delta_mean": 0.0,
+      "bootstrap_95ci": [
+        0.0,
+        0.0
+      ],
+      "statistically_significant": false
+    },
+    "subgroups": {
+      "dysarthric": {
+        "num_utterances": 2820,
+        "baseline_wer": 129.92,
+        "repair_wer": 129.92,
+        "delta_wer": 0.0,
+        "werr_pct": 0.0
+      },
+      "Control": {
+        "num_utterances": 5035,
+        "baseline_wer": 16.56,
+        "repair_wer": 16.56,
+        "delta_wer": 0.0,
+        "werr_pct": 0.0
+      }
+    },
+    "gate_diagnostics": {
+      "total_frames": 11782500.0,
+      "accepted_frames": 4.0,
+      "acceptance_rate_pct": 3.394865266284745e-05,
+      "total_utterances": 7855.0,
+      "corrected_utterances": 0.0,
+      "harmed_utterances": 0.0,
+      "both_correct": 4596.0,
+      "both_error": 3259.0,
+      "unchanged_hypothesis_pct": 100.0,
+      "reasons_breakdown": {
+        "below_q_off_identity": 11782307,
+        "feasible_ambiguous_multiple": 186,
+        "accepted": 4,
+        "feasible_empty": 3
+      }
+    },
+    "utterance_samples": [
+      {
+        "utterance_id": "TORGO_F01_006541",
+        "speaker_id": "F01",
+        "intelligibility": "dysarthric",
+        "task_type": "word",
+        "reference": "knew",
+        "native_hypothesis": "new",
+        "repair_hypothesis": "new",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "TORGO_F01_006542",
+        "speaker_id": "F01",
+        "intelligibility": "dysarthric",
+        "task_type": "word",
+        "reference": "swarm",
+        "native_hypothesis": "sloam",
+        "repair_hypothesis": "sloam",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "TORGO_F01_006543",
+        "speaker_id": "F01",
+        "intelligibility": "dysarthric",
+        "task_type": "word",
+        "reference": "share",
+        "native_hypothesis": "see you",
+        "repair_hypothesis": "see you",
+        "native_wer": 200.0,
+        "repair_wer": 200.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "TORGO_F01_006544",
+        "speaker_id": "F01",
+        "intelligibility": "dysarthric",
+        "task_type": "word",
+        "reference": "up",
+        "native_hypothesis": "up",
+        "repair_hypothesis": "up",
+        "native_wer": 0.0,
+        "repair_wer": 0.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "TORGO_F01_006545",
+        "speaker_id": "F01",
+        "intelligibility": "dysarthric",
+        "task_type": "word",
+        "reference": "bat",
+        "native_hypothesis": "that",
+        "repair_hypothesis": "that",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "TORGO_F01_006546",
+        "speaker_id": "F01",
+        "intelligibility": "dysarthric",
+        "task_type": "sentence",
+        "reference": "twice each day he plays skillfully and with zest upon our small organ",
+        "native_hypothesis": "when i get in place spill food and drink the rest upon a small organ",
+        "repair_hypothesis": "when i get in place spill food and drink the rest upon a small organ",
+        "native_wer": 84.62,
+        "repair_wer": 84.62,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "TORGO_F01_006547",
+        "speaker_id": "F01",
+        "intelligibility": "dysarthric",
+        "task_type": "word",
+        "reference": "alpha",
+        "native_hypothesis": "opa",
+        "repair_hypothesis": "opa",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "TORGO_F01_006548",
+        "speaker_id": "F01",
+        "intelligibility": "dysarthric",
+        "task_type": "word",
+        "reference": "two",
+        "native_hypothesis": "q",
+        "repair_hypothesis": "q",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "TORGO_F01_006549",
+        "speaker_id": "F01",
+        "intelligibility": "dysarthric",
+        "task_type": "word",
+        "reference": "sip",
+        "native_hypothesis": "zip",
+        "repair_hypothesis": "zip",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "TORGO_F01_006550",
+        "speaker_id": "F01",
+        "intelligibility": "dysarthric",
+        "task_type": "word",
+        "reference": "meat",
+        "native_hypothesis": "oh me",
+        "repair_hypothesis": "oh me",
+        "native_wer": 200.0,
+        "repair_wer": 200.0,
+        "exact_match": true
+      }
+    ]
+  },
+  "uaspeech": {
+    "timestamp_utc": "2026-10-18T08:18:06.377417+00:00",
+    "manifest_evaluated": "uaspeech_eval_full.jsonl",
+    "manifest_sha256": "8b3f8c314d448b930903b07bfe7c110bbd342305633e2380c741dfb8ab122175",
+    "model_backbone": "openai/whisper-base.en",
+    "provenance": {
+      "git_commit": "16e777b544f691952969ccd45aa17b89373ff101",
+      "code_bundle_sha256": "f7666bbc2ec277b27c684de9a7488c2470213abb0adff3900bac9c8504faadf0",
+      "artifact_checksum": "7cd7ddd66db9c914e772fbc170b510ddebdde79b0f4bdf090a54bbc2a239c6a7",
+      "platform": "Linux-5.15.0-131-generic-x86_64-with-glibc2.31",
+      "python_version": "3.10.22",
+      "torch_version": "2.5.1+cu121",
+      "cuda_device_name": "Quadro RTX 6000"
+    },
+    "overall_metrics": {
+      "num_utterances": 18740,
+      "elapsed_seconds": 2769.22,
+      "latency_ms_per_utterance": 147.77,
+      "baseline_corpus_wer": 131.03,
+      "repair_corpus_wer": 131.02,
+      "delta_wer": -0.01,
+      "werr_pct": 0.0,
+      "wilcoxon_p_value": 0.563744480703606,
+      "bootstrap_delta_mean": -0.0,
+      "bootstrap_95ci": [
+        -0.01,
+        0.0
+      ],
+      "statistically_significant": false
+    },
+    "subgroups": {
+      "High": {
+        "num_utterances": 5184,
+        "baseline_wer": 213.62,
+        "repair_wer": 213.62,
+        "delta_wer": 0.0,
+        "werr_pct": 0.0
+      },
+      "Very low": {
+        "num_utterances": 10710,
+        "baseline_wer": 79.67,
+        "repair_wer": 79.66,
+        "delta_wer": -0.01,
+        "werr_pct": 0.01
+      },
+      "Low": {
+        "num_utterances": 2846,
+        "baseline_wer": 173.86,
+        "repair_wer": 173.86,
+        "delta_wer": 0.0,
+        "werr_pct": 0.0
+      }
+    },
+    "gate_diagnostics": {
+      "total_frames": 28110000.0,
+      "accepted_frames": 185.0,
+      "acceptance_rate_pct": 0.0006581287797936678,
+      "total_utterances": 18740.0,
+      "corrected_utterances": 0.0,
+      "harmed_utterances": 0.0,
+      "both_correct": 7652.0,
+      "both_error": 11088.0,
+      "unchanged_hypothesis_pct": 99.97865528281751,
+      "reasons_breakdown": {
+        "below_q_off_identity": 28107575,
+        "feasible_ambiguous_multiple": 2156,
+        "accepted": 185,
+        "feasible_empty": 84
+      }
+    },
+    "utterance_samples": [
+      {
+        "utterance_id": "UASPEECH_F03_013556",
+        "speaker_id": "F03",
+        "intelligibility": "High",
+        "task_type": "word",
+        "reference": "hanger",
+        "native_hypothesis": "heeeeereee",
+        "repair_hypothesis": "heeeeereee",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "UASPEECH_F03_013557",
+        "speaker_id": "F03",
+        "intelligibility": "High",
+        "task_type": "word",
+        "reference": "about",
+        "native_hypothesis": "and then",
+        "repair_hypothesis": "and then",
+        "native_wer": 200.0,
+        "repair_wer": 200.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "UASPEECH_F03_013558",
+        "speaker_id": "F03",
+        "intelligibility": "High",
+        "task_type": "word",
+        "reference": "oil",
+        "native_hypothesis": "oh",
+        "repair_hypothesis": "oh",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "UASPEECH_F03_013559",
+        "speaker_id": "F03",
+        "intelligibility": "High",
+        "task_type": "word",
+        "reference": "golf",
+        "native_hypothesis": "go",
+        "repair_hypothesis": "go",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "UASPEECH_F03_013560",
+        "speaker_id": "F03",
+        "intelligibility": "High",
+        "task_type": "word",
+        "reference": "than",
+        "native_hypothesis": "yeah",
+        "repair_hypothesis": "yeah",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "UASPEECH_F03_013561",
+        "speaker_id": "F03",
+        "intelligibility": "High",
+        "task_type": "word",
+        "reference": "alpha",
+        "native_hypothesis": "oh",
+        "repair_hypothesis": "oh",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "UASPEECH_F03_013562",
+        "speaker_id": "F03",
+        "intelligibility": "High",
+        "task_type": "word",
+        "reference": "did",
+        "native_hypothesis": "viv",
+        "repair_hypothesis": "viv",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "UASPEECH_F03_013563",
+        "speaker_id": "F03",
+        "intelligibility": "High",
+        "task_type": "word",
+        "reference": "would",
+        "native_hypothesis": "eeee",
+        "repair_hypothesis": "eeee",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "UASPEECH_F03_013564",
+        "speaker_id": "F03",
+        "intelligibility": "High",
+        "task_type": "word",
+        "reference": "paragraph",
+        "native_hypothesis": "yeah",
+        "repair_hypothesis": "yeah",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      },
+      {
+        "utterance_id": "UASPEECH_F03_013565",
+        "speaker_id": "F03",
+        "intelligibility": "High",
+        "task_type": "word",
+        "reference": "at",
+        "native_hypothesis": "edge",
+        "repair_hypothesis": "edge",
+        "native_wer": 100.0,
+        "repair_wer": 100.0,
+        "exact_match": true
+      }
+    ]
+  },
+  "total_elapsed_sec": 6020.54
+}

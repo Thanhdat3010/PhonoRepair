@@ -1,0 +1,186 @@
+{
+  "timestamp_utc": "2026-10-18T07:31:54.457603+00:00",
+  "manifest_evaluated": "torgo_eval_full.jsonl",
+  "manifest_sha256": "d68dc45b1e27abb757fbf55dd2481db26ab8eef6d72f7892ff9453cae8bd8741",
+  "model_backbone": "openai/whisper-base.en",
+  "provenance": {
+    "git_commit": "16e777b544f691952969ccd45aa17b89373ff101",
+    "code_bundle_sha256": "f7666bbc2ec277b27c684de9a7488c2470213abb0adff3900bac9c8504faadf0",
+    "artifact_checksum": "7cd7ddd66db9c914e772fbc170b510ddebdde79b0f4bdf090a54bbc2a239c6a7",
+    "platform": "Linux-5.15.0-131-generic-x86_64-with-glibc2.31",
+    "python_version": "3.10.22",
+    "torch_version": "2.5.1+cu121",
+    "cuda_device_name": "Quadro RTX 6000"
+  },
+  "overall_metrics": {
+    "num_utterances": 7855,
+    "elapsed_seconds": 859.22,
+    "latency_ms_per_utterance": 109.39,
+    "baseline_corpus_wer": 57.02,
+    "repair_corpus_wer": 57.02,
+    "delta_wer": 0.0,
+    "werr_pct": 0.0,
+    "wilcoxon_p_value": 1.0,
+    "bootstrap_delta_mean": 0.0,
+    "bootstrap_95ci": [
+      0.0,
+      0.0
+    ],
+    "statistically_significant": false
+  },
+  "subgroups": {
+    "dysarthric": {
+      "num_utterances": 2820,
+      "baseline_wer": 129.92,
+      "repair_wer": 129.92,
+      "delta_wer": 0.0,
+      "werr_pct": 0.0
+    },
+    "Control": {
+      "num_utterances": 5035,
+      "baseline_wer": 16.56,
+      "repair_wer": 16.56,
+      "delta_wer": 0.0,
+      "werr_pct": 0.0
+    }
+  },
+  "gate_diagnostics": {
+    "total_frames": 11782500.0,
+    "accepted_frames": 4.0,
+    "acceptance_rate_pct": 3.394865266284745e-05,
+    "total_utterances": 7855.0,
+    "corrected_utterances": 0.0,
+    "harmed_utterances": 0.0,
+    "both_correct": 4596.0,
+    "both_error": 3259.0,
+    "unchanged_hypothesis_pct": 100.0,
+    "reasons_breakdown": {
+      "below_q_off_identity": 11782307,
+      "feasible_ambiguous_multiple": 186,
+      "accepted": 4,
+      "feasible_empty": 3
+    }
+  },
+  "utterance_samples": [
+    {
+      "utterance_id": "TORGO_F01_006541",
+      "speaker_id": "F01",
+      "intelligibility": "dysarthric",
+      "task_type": "word",
+      "reference": "knew",
+      "native_hypothesis": "new",
+      "repair_hypothesis": "new",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_F01_006542",
+      "speaker_id": "F01",
+      "intelligibility": "dysarthric",
+      "task_type": "word",
+      "reference": "swarm",
+      "native_hypothesis": "sloam",
+      "repair_hypothesis": "sloam",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_F01_006543",
+      "speaker_id": "F01",
+      "intelligibility": "dysarthric",
+      "task_type": "word",
+      "reference": "share",
+      "native_hypothesis": "see you",
+      "repair_hypothesis": "see you",
+      "native_wer": 200.0,
+      "repair_wer": 200.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_F01_006544",
+      "speaker_id": "F01",
+      "intelligibility": "dysarthric",
+      "task_type": "word",
+      "reference": "up",
+      "native_hypothesis": "up",
+      "repair_hypothesis": "up",
+      "native_wer": 0.0,
+      "repair_wer": 0.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_F01_006545",
+      "speaker_id": "F01",
+      "intelligibility": "dysarthric",
+      "task_type": "word",
+      "reference": "bat",
+      "native_hypothesis": "that",
+      "repair_hypothesis": "that",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_F01_006546",
+      "speaker_id": "F01",
+      "intelligibility": "dysarthric",
+      "task_type": "sentence",
+      "reference": "twice each day he plays skillfully and with zest upon our small organ",
+      "native_hypothesis": "when i get in place spill food and drink the rest upon a small organ",
+      "repair_hypothesis": "when i get in place spill food and drink the rest upon a small organ",
+      "native_wer": 84.62,
+      "repair_wer": 84.62,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_F01_006547",
+      "speaker_id": "F01",
+      "intelligibility": "dysarthric",
+      "task_type": "word",
+      "reference": "alpha",
+      "native_hypothesis": "opa",
+      "repair_hypothesis": "opa",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_F01_006548",
+      "speaker_id": "F01",
+      "intelligibility": "dysarthric",
+      "task_type": "word",
+      "reference": "two",
+      "native_hypothesis": "q",
+      "repair_hypothesis": "q",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_F01_006549",
+      "speaker_id": "F01",
+      "intelligibility": "dysarthric",
+      "task_type": "word",
+      "reference": "sip",
+      "native_hypothesis": "zip",
+      "repair_hypothesis": "zip",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_F01_006550",
+      "speaker_id": "F01",
+      "intelligibility": "dysarthric",
+      "task_type": "word",
+      "reference": "meat",
+      "native_hypothesis": "oh me",
+      "repair_hypothesis": "oh me",
+      "native_wer": 200.0,
+      "repair_wer": 200.0,
+      "exact_match": true
+    }
+  ]
+}

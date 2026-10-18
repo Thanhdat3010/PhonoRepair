@@ -1,0 +1,193 @@
+{
+  "timestamp_utc": "2026-10-18T08:18:06.377417+00:00",
+  "manifest_evaluated": "uaspeech_eval_full.jsonl",
+  "manifest_sha256": "8b3f8c314d448b930903b07bfe7c110bbd342305633e2380c741dfb8ab122175",
+  "model_backbone": "openai/whisper-base.en",
+  "provenance": {
+    "git_commit": "16e777b544f691952969ccd45aa17b89373ff101",
+    "code_bundle_sha256": "f7666bbc2ec277b27c684de9a7488c2470213abb0adff3900bac9c8504faadf0",
+    "artifact_checksum": "7cd7ddd66db9c914e772fbc170b510ddebdde79b0f4bdf090a54bbc2a239c6a7",
+    "platform": "Linux-5.15.0-131-generic-x86_64-with-glibc2.31",
+    "python_version": "3.10.22",
+    "torch_version": "2.5.1+cu121",
+    "cuda_device_name": "Quadro RTX 6000"
+  },
+  "overall_metrics": {
+    "num_utterances": 18740,
+    "elapsed_seconds": 2769.22,
+    "latency_ms_per_utterance": 147.77,
+    "baseline_corpus_wer": 131.03,
+    "repair_corpus_wer": 131.02,
+    "delta_wer": -0.01,
+    "werr_pct": 0.0,
+    "wilcoxon_p_value": 0.563744480703606,
+    "bootstrap_delta_mean": -0.0,
+    "bootstrap_95ci": [
+      -0.01,
+      0.0
+    ],
+    "statistically_significant": false
+  },
+  "subgroups": {
+    "High": {
+      "num_utterances": 5184,
+      "baseline_wer": 213.62,
+      "repair_wer": 213.62,
+      "delta_wer": 0.0,
+      "werr_pct": 0.0
+    },
+    "Very low": {
+      "num_utterances": 10710,
+      "baseline_wer": 79.67,
+      "repair_wer": 79.66,
+      "delta_wer": -0.01,
+      "werr_pct": 0.01
+    },
+    "Low": {
+      "num_utterances": 2846,
+      "baseline_wer": 173.86,
+      "repair_wer": 173.86,
+      "delta_wer": 0.0,
+      "werr_pct": 0.0
+    }
+  },
+  "gate_diagnostics": {
+    "total_frames": 28110000.0,
+    "accepted_frames": 185.0,
+    "acceptance_rate_pct": 0.0006581287797936678,
+    "total_utterances": 18740.0,
+    "corrected_utterances": 0.0,
+    "harmed_utterances": 0.0,
+    "both_correct": 7652.0,
+    "both_error": 11088.0,
+    "unchanged_hypothesis_pct": 99.97865528281751,
+    "reasons_breakdown": {
+      "below_q_off_identity": 28107575,
+      "feasible_ambiguous_multiple": 2156,
+      "accepted": 185,
+      "feasible_empty": 84
+    }
+  },
+  "utterance_samples": [
+    {
+      "utterance_id": "UASPEECH_F03_013556",
+      "speaker_id": "F03",
+      "intelligibility": "High",
+      "task_type": "word",
+      "reference": "hanger",
+      "native_hypothesis": "heeeeereee",
+      "repair_hypothesis": "heeeeereee",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "UASPEECH_F03_013557",
+      "speaker_id": "F03",
+      "intelligibility": "High",
+      "task_type": "word",
+      "reference": "about",
+      "native_hypothesis": "and then",
+      "repair_hypothesis": "and then",
+      "native_wer": 200.0,
+      "repair_wer": 200.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "UASPEECH_F03_013558",
+      "speaker_id": "F03",
+      "intelligibility": "High",
+      "task_type": "word",
+      "reference": "oil",
+      "native_hypothesis": "oh",
+      "repair_hypothesis": "oh",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "UASPEECH_F03_013559",
+      "speaker_id": "F03",
+      "intelligibility": "High",
+      "task_type": "word",
+      "reference": "golf",
+      "native_hypothesis": "go",
+      "repair_hypothesis": "go",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "UASPEECH_F03_013560",
+      "speaker_id": "F03",
+      "intelligibility": "High",
+      "task_type": "word",
+      "reference": "than",
+      "native_hypothesis": "yeah",
+      "repair_hypothesis": "yeah",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "UASPEECH_F03_013561",
+      "speaker_id": "F03",
+      "intelligibility": "High",
+      "task_type": "word",
+      "reference": "alpha",
+      "native_hypothesis": "oh",
+      "repair_hypothesis": "oh",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "UASPEECH_F03_013562",
+      "speaker_id": "F03",
+      "intelligibility": "High",
+      "task_type": "word",
+      "reference": "did",
+      "native_hypothesis": "viv",
+      "repair_hypothesis": "viv",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "UASPEECH_F03_013563",
+      "speaker_id": "F03",
+      "intelligibility": "High",
+      "task_type": "word",
+      "reference": "would",
+      "native_hypothesis": "eeee",
+      "repair_hypothesis": "eeee",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "UASPEECH_F03_013564",
+      "speaker_id": "F03",
+      "intelligibility": "High",
+      "task_type": "word",
+      "reference": "paragraph",
+      "native_hypothesis": "yeah",
+      "repair_hypothesis": "yeah",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "UASPEECH_F03_013565",
+      "speaker_id": "F03",
+      "intelligibility": "High",
+      "task_type": "word",
+      "reference": "at",
+      "native_hypothesis": "edge",
+      "repair_hypothesis": "edge",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    }
+  ]
+}
