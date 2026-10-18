@@ -152,7 +152,24 @@ Tài liệu này ghi lại toàn bộ lịch sử các lượt chạy thực ngh
   - **22/22 unit tests PASSED (100%)** trên Conda env `phonorepair`.
   - Lọc chính xác các mẫu nhiễu: TORGO loại bỏ triệt để prompt `xxx [unintelligible]` (chỉ giữ 4/5 mẫu hợp lệ).
   - Chuẩn hóa đường dẫn dạng Unix forward-slash (`/`) trong mọi JSONL manifest, kết hợp cơ chế tự động tìm fallback path trong `EvaluationRunner`.
-  - Đánh giá end-to-end trên `torgo_mock.jsonl` thành công, tạo biên nhận WORM receipt [`outputs/receipts/worm_receipt_20261018_125958.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/receipts/worm_receipt_20261018_125958.json).
+### Thực nghiệm 10: Triển khai & Xác thực Máy chủ GPU NVIDIA Quadro RTX 6000 (Remote Pre-Flight Benchmark)
+- **Mục tiêu:** Vận hành thực nghiệm trên máy chủ GPU dùng chung theo đúng hướng dẫn [`docs/RTX6000_TAILSCALE_RUNBOOK.md`](file:///d:/HCMUS/NCKH/PhonoRepair/docs/RTX6000_TAILSCALE_RUNBOOK.md) qua Tailscale SSH (`ura@100.90.53.12`), thiết lập cấu trúc cô lập tuyệt đối, chuyển hướng toàn bộ cache/temp, xác minh bundle lock và thực thi suite kiểm thử trên GPU RTX 6000.
+- **Lệnh chạy:**
+  ```bash
+  # Thực thi từ xa qua script tự động:
+  bash scripts/verify_server_env.sh
+  ```
+- **Kết quả đo đạc trên Máy chủ:**
+  - **Môi trường:** Ubuntu Linux, Python 3.10.22, PyTorch 2.5.1+cu121.
+  - **Phần cứng:** NVIDIA Quadro RTX 6000 (24 GB VRAM, 22.83 GB free), CUDA 12.1.
+  - **Cô lập tài nguyên:** Thư mục dự án độc lập tại `/workspace/ura/thanhdat/projects/PhonoRepair`, môi trường Conda cô lập tại `./conda/envs/phonorepair`, toàn bộ cache HuggingFace, PyTorch, Pip, Triton nằm tại `./cache/*`.
+  - **Kiểm định Bundle Lock:** Khớp 100% (30/30 tệp mã nguồn nguyên vẹn, không có biến động trôi dạt).
+  - **Bộ kiểm thử đơn vị:** **22/22 tests PASSED (100%)** trong 12.59s trên Linux GPU server.
+  - **Benchmark ghép đôi trên CUDA (`cuda:0`):**
+    - Đánh giá trên `torgo_mock.jsonl` (4 câu) bằng Whisper base.en.
+    - **Độ trễ suy luận trên RTX 6000:** **200.7 ms/câu** (giảm hơn 4 lần so với CPU 811.8 ms/câu).
+    - **Bảo toàn Anti-Harm:** $100.00\%$ số frame trả về `below_q_off_identity` (6.000/6.000 frames), $\Delta\text{WER} = +0.00\%$.
+    - **Biên nhận WORM:** Xuất tự động tại [`outputs/receipts/worm_receipt_20261018_130948.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/receipts/worm_receipt_20261018_130948.json).
 
 ---
 
@@ -165,8 +182,10 @@ Tài liệu này ghi lại toàn bộ lịch sử các lượt chạy thực ngh
 | Module đánh giá ghép đôi (`runner.py`) | Hoàn thành | [`src/phonorepair/evaluation/runner.py`](file:///d:/HCMUS/NCKH/PhonoRepair/src/phonorepair/evaluation/runner.py) |
 | Bảng khóa bundle mã nguồn (30 files) | Hoàn thành | [`outputs/locks/bundle_manifest.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/locks/bundle_manifest.json) |
 | Giao thức Khóa Baseline & Chống Trôi dạt | Hoàn thành | [`docs/BASELINE_LOCKING_AND_ANTI_DRIFT_PROTOCOL.md`](file:///d:/HCMUS/NCKH/PhonoRepair/docs/BASELINE_LOCKING_AND_ANTI_DRIFT_PROTOCOL.md) |
+| Khung Chống Trôi dạt Toàn quát (Đa lĩnh vực) | Hoàn thành | [`docs/UNIVERSAL_BASELINE_LOCKING_AND_ANTI_DRIFT_FRAMEWORK.md`](file:///d:/HCMUS/NCKH/PhonoRepair/docs/UNIVERSAL_BASELINE_LOCKING_AND_ANTI_DRIFT_FRAMEWORK.md) |
 | Tài liệu Vận hành Server RTX 6000 | Hoàn thành | [`docs/RTX6000_TAILSCALE_RUNBOOK.md`](file:///d:/HCMUS/NCKH/PhonoRepair/docs/RTX6000_TAILSCALE_RUNBOOK.md) |
 | Môi trường Conda cô lập trên RTX 6000 | Hoàn thành | `/workspace/ura/thanhdat/projects/PhonoRepair/conda/envs/phonorepair` |
 | Dữ liệu manifest & checksum khóa | Hoàn thành | [`data/manifests/`](file:///d:/HCMUS/NCKH/PhonoRepair/data/manifests/) |
 | Artifact đã hiệu chuẩn ($w = 2.17$) | Hoàn thành | [`outputs/artifacts/whisper_base_artifact.pt`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/artifacts/whisper_base_artifact.pt) |
+| Kiểm thử Smoke Test trên RTX 6000 GPU | Hoàn thành | Passed 100% (`cuda:0`, 200.7 ms/câu, WORM receipt) |
 | Đồng bộ GitHub Remote | Hoàn thành | `https://github.com/Thanhdat3010/PhonoRepair.git` (branch `main`) |
