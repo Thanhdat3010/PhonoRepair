@@ -1,0 +1,20 @@
+{
+  "manifest_evaluated": "data/manifests/uaspeech_eval_full.jsonl",
+  "manifest_sha256": "6ff87716b8a88a5acf5566e628474bdc794fb71e6e7e7ad0debd1d41e9487a67",
+  "payload": {
+    "baseline_wer": 88.0,
+    "bootstrap_ci_95": [
+      -16.0,
+      -16.0
+    ],
+    "dataset": "UASpeech",
+    "delta_wer": -16.0,
+    "is_statistically_significant": true,
+    "repaired_wer": 72.0,
+    "sample_count": 50,
+    "werr": 18.181818181818183,
+    "wilcoxon_p_value": 0.041653663347301084,
+    "wilcoxon_statistic": 0.0
+  },
+  "timestamp_utc": "2026-10-18T12:24:20.243736+00:00"
+}
