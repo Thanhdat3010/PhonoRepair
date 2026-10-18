@@ -1,0 +1,176 @@
+{
+  "timestamp_utc": "2026-10-18T05:33:34.579437+00:00",
+  "manifest_evaluated": "test_clean.jsonl",
+  "manifest_sha256": "53c38c1e2a12e97a0dae218fc5f238bcae993ab098c9601318eee59aaf268897",
+  "model_backbone": "openai/whisper-base.en",
+  "provenance": {
+    "git_commit": "4e0d7716d968a5bbde5c5d2c3007c72b412bade5",
+    "code_bundle_sha256": "7c1854068e303a5a7be7e9fb1c4d6bda68d31606b6eb0c070d5153df9fa79b98",
+    "artifact_checksum": "7cd7ddd66db9c914e772fbc170b510ddebdde79b0f4bdf090a54bbc2a239c6a7",
+    "platform": "Windows-10-10.0.22631-SP0",
+    "python_version": "3.10.22",
+    "torch_version": "2.5.1+cu121",
+    "cuda_device_name": "NVIDIA GeForce RTX 3050 Laptop GPU"
+  },
+  "overall_metrics": {
+    "num_utterances": 15,
+    "elapsed_seconds": 13.69,
+    "latency_ms_per_utterance": 912.52,
+    "baseline_corpus_wer": 3.12,
+    "repair_corpus_wer": 3.12,
+    "delta_wer": 0.0,
+    "werr_pct": 0.0,
+    "wilcoxon_p_value": 1.0,
+    "bootstrap_delta_mean": 0.0,
+    "bootstrap_95ci": [
+      0.0,
+      0.0
+    ],
+    "statistically_significant": false
+  },
+  "subgroups": {
+    "Overall": {
+      "num_utterances": 15,
+      "baseline_wer": 3.12,
+      "repair_wer": 3.12,
+      "delta_wer": 0.0,
+      "werr_pct": 0.0
+    }
+  },
+  "gate_diagnostics": {
+    "total_frames": 22500.0,
+    "accepted_frames": 0.0,
+    "acceptance_rate_pct": 0.0,
+    "total_utterances": 15.0,
+    "corrected_utterances": 0.0,
+    "harmed_utterances": 0.0,
+    "both_correct": 8.0,
+    "both_error": 7.0,
+    "unchanged_hypothesis_pct": 100.0,
+    "reasons_breakdown": {
+      "below_q_off_identity": 22500
+    }
+  },
+  "utterance_samples": [
+    {
+      "utterance_id": "6930-75918-0000",
+      "speaker_id": "6930",
+      "intelligibility": "Overall",
+      "task_type": "general",
+      "reference": "concord returned to its place amidst the tents",
+      "native_hypothesis": "concorde returned to its place amidst the tents",
+      "repair_hypothesis": "concorde returned to its place amidst the tents",
+      "native_wer": 12.5,
+      "repair_wer": 12.5,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "6930-75918-0001",
+      "speaker_id": "6930",
+      "intelligibility": "Overall",
+      "task_type": "general",
+      "reference": "the english forwarded to the french baskets of flowers of which they had made a plentiful provision to greet the arrival of the young princess the french in return invited the english to a supper which was to be given the next day",
+      "native_hypothesis": "the english forwarded to the french baskets of flowers of which they had made a plentiful provision to greet the arrival of the young princess the french in return invited the english to a supper which was to be given the next day",
+      "repair_hypothesis": "the english forwarded to the french baskets of flowers of which they had made a plentiful provision to greet the arrival of the young princess the french in return invited the english to a supper which was to be given the next day",
+      "native_wer": 0.0,
+      "repair_wer": 0.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "6930-75918-0002",
+      "speaker_id": "6930",
+      "intelligibility": "Overall",
+      "task_type": "general",
+      "reference": "congratulations were poured in upon the princess everywhere during her journey",
+      "native_hypothesis": "congratulations were poured in upon the princess everywhere during her journey",
+      "repair_hypothesis": "congratulations were poured in upon the princess everywhere during her journey",
+      "native_wer": 0.0,
+      "repair_wer": 0.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "6930-75918-0004",
+      "speaker_id": "6930",
+      "intelligibility": "Overall",
+      "task_type": "general",
+      "reference": "she taught her daughter then by her own affection for it that love for a country where they had both been hospitably received and where a brilliant future opened before them",
+      "native_hypothesis": "she taught her daughter then by her own affection for it that love for a country where they had both been hospitably received and where a brilliant future opened for them",
+      "repair_hypothesis": "she taught her daughter then by her own affection for it that love for a country where they had both been hospitably received and where a brilliant future opened for them",
+      "native_wer": 3.23,
+      "repair_wer": 3.23,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "6930-75918-0005",
+      "speaker_id": "6930",
+      "intelligibility": "Overall",
+      "task_type": "general",
+      "reference": "the count had thrown himself back on his seat leaning his shoulders against the partition of the tent and remained thus his face buried in his hands with heaving chest and restless limbs",
+      "native_hypothesis": "the count had thrown himself back on his seat leaning his shoulders against the partition of the tent and remained thus his face buried in his hands with heaving chest and restless limbs",
+      "repair_hypothesis": "the count had thrown himself back on his seat leaning his shoulders against the partition of the tent and remained thus his face buried in his hands with heaving chest and restless limbs",
+      "native_wer": 0.0,
+      "repair_wer": 0.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "1320-122617-0000",
+      "speaker_id": "1320",
+      "intelligibility": "Overall",
+      "task_type": "general",
+      "reference": "notwithstanding the high resolution of hawkeye he fully comprehended all the difficulties and danger he was about to incur",
+      "native_hypothesis": "notwithstanding the high resolution of hawkeye he fully comprehended all the difficulties and danger he was about to incur",
+      "repair_hypothesis": "notwithstanding the high resolution of hawkeye he fully comprehended all the difficulties and danger he was about to incur",
+      "native_wer": 0.0,
+      "repair_wer": 0.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "1320-122617-0001",
+      "speaker_id": "1320",
+      "intelligibility": "Overall",
+      "task_type": "general",
+      "reference": "in his return to the camp his acute and practised intellects were intently engaged in devising means to counteract a watchfulness and suspicion on the part of his enemies that he knew were in no degree inferior to his own",
+      "native_hypothesis": "in his return to the camp his acute and practiced intellects were intently engaged in devising means to counteract a watchfulness and suspicion on the part of his enemies that he knew were in no degree inferior to his own",
+      "repair_hypothesis": "in his return to the camp his acute and practiced intellects were intently engaged in devising means to counteract a watchfulness and suspicion on the part of his enemies that he knew were in no degree inferior to his own",
+      "native_wer": 2.5,
+      "repair_wer": 2.5,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "1320-122617-0002",
+      "speaker_id": "1320",
+      "intelligibility": "Overall",
+      "task_type": "general",
+      "reference": "in other words while he had implicit faith in the ability of balaam's ass to speak he was somewhat skeptical on the subject of a bear's singing and yet he had been assured of the latter on the testimony of his own exquisite organs",
+      "native_hypothesis": "in other words while he had implicit faith in the ability of balaam's ass to speak he was somewhat skeptical on the subject of a bear's singing and yet he had been assured of the latter on the testimony of his own exquisite organs",
+      "repair_hypothesis": "in other words while he had implicit faith in the ability of balaam's ass to speak he was somewhat skeptical on the subject of a bear's singing and yet he had been assured of the latter on the testimony of his own exquisite organs",
+      "native_wer": 0.0,
+      "repair_wer": 0.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "1320-122617-0003",
+      "speaker_id": "1320",
+      "intelligibility": "Overall",
+      "task_type": "general",
+      "reference": "there was something in his air and manner that betrayed to the scout the utter confusion of the state of his mind",
+      "native_hypothesis": "there was something in his air and manner that betrayed to the scout the utter confusion of the state of his mind",
+      "repair_hypothesis": "there was something in his air and manner that betrayed to the scout the utter confusion of the state of his mind",
+      "native_wer": 0.0,
+      "repair_wer": 0.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "1320-122617-0004",
+      "speaker_id": "1320",
+      "intelligibility": "Overall",
+      "task_type": "general",
+      "reference": "the ingenious hawkeye who recalled the hasty manner in which the other had abandoned his post at the bedside of the sick woman was not without his suspicions concerning the subject of so much solemn deliberation",
+      "native_hypothesis": "the ingenious hawkeye who recalled the hasty manner in which the other had abandoned his post at the bedside of the sick woman was not without his suspicions concerning the subject of so much solemn deliberation",
+      "repair_hypothesis": "the ingenious hawkeye who recalled the hasty manner in which the other had abandoned his post at the bedside of the sick woman was not without his suspicions concerning the subject of so much solemn deliberation",
+      "native_wer": 0.0,
+      "repair_wer": 0.0,
+      "exact_match": true
+    }
+  ]
+}

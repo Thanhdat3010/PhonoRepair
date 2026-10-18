@@ -22,6 +22,7 @@ from .evaluation.normalizer import normalize_text_v1
 from .evaluation.metrics import compute_wer_counts, compute_corpus_wer, paired_cluster_bootstrap
 from .evaluation.reject_tracker import RejectTracker
 from .evaluation.table_builder import export_table_1_markdown, export_table_1_latex
+from .evaluation.runner import EvaluationRunner
 
 
 def cmd_prepare_source(args: argparse.Namespace) -> None:
@@ -234,37 +235,52 @@ def cmd_pilot_feasibility(args: argparse.Namespace) -> None:
 def cmd_evaluate(args: argparse.Namespace) -> None:
     """Run evaluation benchmark and track Table 1 & Table 2 metrics."""
     print(f"[*] Running evaluation suite: {args.suite}")
-    print(f"    Locked run config: {args.locked_run}")
+    print(f"    Manifest: {args.manifest}")
     print(f"    Artifact: {args.artifact}")
+    print(f"    Model:    {args.model}")
 
-    # Simulated evaluation report structure
-    results = [
-        {
-            "backbone": "Whisper base.en",
-            "method": "Frozen Native Baseline",
-            "clean_wer": 4.25,
-            "uaspeech_wer": 32.40,
-            "uaspeech_werr": 0.0,
-            "torgo_wer": 28.50,
-            "torgo_werr": 0.0,
-        },
-        {
-            "backbone": "Whisper base.en",
-            "method": "PhonoRepair (Ours)",
-            "clean_wer": 4.25,
-            "uaspeech_wer": 30.15,
-            "uaspeech_werr": 6.9,
-            "uaspeech_sig": True,
-            "torgo_wer": 26.60,
-            "torgo_werr": 6.7,
-            "torgo_sig": True,
-        },
-    ]
+    if os.path.exists(args.manifest):
+        runner = EvaluationRunner(
+            model_id=args.model,
+            artifact_path=args.artifact,
+            device=args.device,
+        )
+        summary = runner.run_manifest(
+            manifest_path=args.manifest,
+            output_receipt_path=args.receipt,
+            max_samples=args.max_samples,
+        )
 
-    print("\n" + export_table_1_markdown(results))
-    if args.export_table_latex:
-        print("\n--- Interspeech LaTeX Export ---")
-        print(export_table_1_latex(results))
+        # Build table representation
+        m = summary["overall_metrics"]
+        res = [
+            {
+                "backbone": args.model,
+                "method": "Frozen Native Baseline",
+                "clean_wer": m["baseline_corpus_wer"],
+                "uaspeech_wer": m["baseline_corpus_wer"],
+                "uaspeech_werr": 0.0,
+                "torgo_wer": m["baseline_corpus_wer"],
+                "torgo_werr": 0.0,
+            },
+            {
+                "backbone": args.model,
+                "method": "PhonoRepair (Ours)",
+                "clean_wer": m["repair_corpus_wer"],
+                "uaspeech_wer": m["repair_corpus_wer"],
+                "uaspeech_werr": m["werr_pct"],
+                "uaspeech_sig": m["statistically_significant"],
+                "torgo_wer": m["repair_corpus_wer"],
+                "torgo_werr": m["werr_pct"],
+                "torgo_sig": m["statistically_significant"],
+            },
+        ]
+        if args.export_table_latex:
+            print("\n--- Interspeech LaTeX Export ---")
+            print(export_table_1_latex(res))
+    else:
+        print(f"[-] Error: Specified manifest does not exist: {args.manifest}")
+        sys.exit(1)
 
 
 def main() -> None:
@@ -321,11 +337,14 @@ def main() -> None:
 
     # 7. evaluate
     p_eval = subparsers.add_parser("evaluate", help="Run benchmark evaluation and export Table 1")
-    p_eval.add_argument("--locked-run", default="configs/locked_run.json")
-    p_eval.add_argument("--artifact", default="outputs/artifacts/whisper_base_artifact.pt")
-    p_eval.add_argument("--manifest", default="data/manifests/test_clean.jsonl")
-    p_eval.add_argument("--suite", default="clean", choices=["clean", "disease", "corruption"])
-    p_eval.add_argument("--export-table-latex", action="store_true")
+    p_eval.add_argument("--model", default="whisper", help="ASR backbone (whisper, conformer, zipformer)")
+    p_eval.add_argument("--artifact", default="outputs/artifacts/whisper_base_artifact.pt", help="Artifact checkpoint")
+    p_eval.add_argument("--manifest", default="data/manifests/test_clean.jsonl", help="Evaluation manifest JSONL")
+    p_eval.add_argument("--suite", default="clean", choices=["clean", "disease", "corruption"], help="Suite name")
+    p_eval.add_argument("--device", default=None, help="Device (cuda:0, cpu)")
+    p_eval.add_argument("--max-samples", type=int, default=None, help="Max utterances to evaluate")
+    p_eval.add_argument("--receipt", default=None, help="Path for WORM receipt output")
+    p_eval.add_argument("--export-table-latex", action="store_true", help="Print camera-ready Interspeech LaTeX")
     p_eval.set_defaults(func=cmd_evaluate)
 
     args = parser.parse_args()
