@@ -3,6 +3,7 @@
 
 > **Mã văn bản:** `DOC-PROTO-ANTI-DRIFT-V1`  
 > **Áp dụng cho:** Nghiên cứu PhonoRepair (Interspeech 2027 Submission)  
+> **Khung chuẩn quy nền tảng:** [`docs/UNIVERSAL_BASELINE_LOCKING_AND_ANTI_DRIFT_FRAMEWORK.md`](file:///d:/HCMUS/NCKH/PhonoRepair/docs/UNIVERSAL_BASELINE_LOCKING_AND_ANTI_DRIFT_FRAMEWORK.md) (Áp dụng cho mọi bài báo AI/ML)  
 > **Cơ sở pháp lý & học thuật:** PhonoRepair Proposal v7.1 (Sections 6, 7, 8, 10, 11, 14 và Appendix B)  
 > **Trạng thái:** BẮT BUỘC TUÂN THỦ TOÀN DIỆN (Strictly Enforced)
 
