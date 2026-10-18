@@ -32,6 +32,8 @@ from .gate import aggregate_class_distances, evaluate_gate
 def repair_frame(
     h: torch.Tensor,
     artifact: Any,
+    margin_gamma: Optional[float] = None,
+    alpha_blend: Optional[float] = None,
 ) -> Tuple[torch.Tensor, str, Optional[int]]:
     """Apply PhonoRepair to a single frame latent vector h.
 
@@ -50,6 +52,8 @@ def repair_frame(
             - nu: Noise budget
             - correction_budget: Maximum allowed displacement norm (default eta + nu)
             - is_active: bool
+        margin_gamma: Optional singleton margin threshold (overrides artifact)
+        alpha_blend: Optional projection shrinkage factor in (0, 1] (overrides artifact)
 
     Returns:
         h_out: Repaired or original latent tensor of shape (d,)
@@ -70,6 +74,8 @@ def repair_frame(
     eta = artifact.eta
     nu = artifact.nu
     correction_budget = getattr(artifact, "correction_budget", eta + nu)
+    gamma = margin_gamma if margin_gamma is not None else getattr(artifact, "margin_gamma", 0.0)
+    alpha = alpha_blend if alpha_blend is not None else getattr(artifact, "alpha_blend", 1.0)
 
     # 1. Project to repair space u = Q^T (h - mu)
     u = read_coordinates(h, Q, mu)
@@ -82,7 +88,7 @@ def repair_frame(
         patch_dists.unsqueeze(0), patch_labels, num_classes
     )
 
-    is_accepted, target_classes, reasons = evaluate_gate(class_dists, q_off, eta, nu)
+    is_accepted, target_classes, reasons = evaluate_gate(class_dists, q_off, eta, nu, margin_gamma=gamma)
 
     if not is_accepted[0].item():
         return h, reasons[0], None
@@ -114,20 +120,25 @@ def repair_frame(
     if displacement > correction_budget:
         return h, "displacement_exceeds_budget", None
 
-    # 6. Lift repaired coordinate: h_hat = h + Q (candidate - u)
-    h_hat = lift_coordinates(best_proj, u, h, Q)
+    # 6. Apply alpha shrinkage and lift repaired coordinate: h_hat = h + alpha * Q (candidate - u)
+    target_coord = u + alpha * (best_proj - u) if alpha < 1.0 else best_proj
+    h_hat = lift_coordinates(target_coord, u, h, Q)
     return h_hat, "accepted", c_star
 
 
 def repair_sequence(
     h_seq: torch.Tensor,
     artifact: Any,
+    margin_gamma: Optional[float] = None,
+    alpha_blend: Optional[float] = None,
 ) -> Tuple[torch.Tensor, List[str], List[Optional[int]]]:
     """Apply PhonoRepair vectorially over an acoustic sequence with fast reject path.
 
     Args:
         h_seq: Latent sequence tensor of shape (T, d)
         artifact: PhonoRepair artifact
+        margin_gamma: Optional singleton margin threshold
+        alpha_blend: Optional projection shrinkage factor in (0, 1]
 
     Returns:
         h_seq_repaired: Tensor of shape (T, d)
@@ -149,6 +160,8 @@ def repair_sequence(
     eta = artifact.eta
     nu = artifact.nu
     correction_budget = getattr(artifact, "correction_budget", eta + nu)
+    gamma = margin_gamma if margin_gamma is not None else getattr(artifact, "margin_gamma", 0.0)
+    alpha = alpha_blend if alpha_blend is not None else getattr(artifact, "alpha_blend", 1.0)
 
     # 1. Project sequence u_seq = (h_seq - mu) @ Q  -> shape (T, r)
     u_seq = read_coordinates(h_seq, Q, mu)
@@ -160,7 +173,7 @@ def repair_sequence(
     class_dists, _, _, _ = aggregate_class_distances(patch_dists, patch_labels, num_classes)
 
     # 4. Evaluate gate across all frames
-    is_accepted, target_classes, reasons = evaluate_gate(class_dists, q_off, eta, nu)
+    is_accepted, target_classes, reasons = evaluate_gate(class_dists, q_off, eta, nu, margin_gamma=gamma)
 
     classes: List[Optional[int]] = [None] * T
     h_out = h_seq.clone()
@@ -202,7 +215,8 @@ def repair_sequence(
             reasons[t] = "displacement_exceeds_budget"
             continue
 
-        h_hat = lift_coordinates(best_proj, u_t, h_t, Q)
+        target_coord = u_t + alpha * (best_proj - u_t) if alpha < 1.0 else best_proj
+        h_hat = lift_coordinates(target_coord, u_t, h_t, Q)
         h_out[t] = h_hat
         classes[t] = c_star
 

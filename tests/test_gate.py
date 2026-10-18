@@ -98,5 +98,31 @@ def test_conformal_calibrator_pilot_fallback():
     cal_art, stats = calibrator.calibrate(spk_blocks, artifact)
     assert stats["is_gate_open"] == 1.0
     assert stats["w"] > 0.0
+
+
+def test_gate_margin_gamma_accepted():
+    """Verify that margin_gamma accepts when class separation d_2 - d_1 >= margin_gamma."""
+    # class 0: 2.2, class 1: 2.5 -> both <= upper bound (3.0)
+    class_dists = torch.tensor([[2.2, 2.5]])
+    q_off = 2.0
+    eta = 2.0
+    nu = 1.0
+
+    # Without margin (default margin_gamma=0.0): rejected as ambiguous
+    is_acc, _, reasons = evaluate_gate(class_dists, q_off, eta, nu, margin_gamma=0.0)
+    assert not is_acc[0].item()
+    assert reasons[0] == "feasible_ambiguous_multiple"
+
+    # With margin_gamma = 0.20: gap is 0.30 >= 0.20 -> accepted class 0!
+    is_acc, target_c, reasons = evaluate_gate(class_dists, q_off, eta, nu, margin_gamma=0.20)
+    assert is_acc[0].item()
+    assert target_c[0].item() == 0
+    assert reasons[0] == "accepted"
+
+    # With margin_gamma = 0.40: gap is 0.30 < 0.40 -> rejected
+    is_acc, _, reasons = evaluate_gate(class_dists, q_off, eta, nu, margin_gamma=0.40)
+    assert not is_acc[0].item()
+    assert reasons[0] == "feasible_ambiguous_multiple"
+
     assert not math.isinf(stats["q_cal"])
 

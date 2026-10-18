@@ -72,6 +72,7 @@ def evaluate_gate(
     q_off: float,
     eta: float,
     nu: float,
+    margin_gamma: float = 0.0,
 ) -> Tuple[torch.Tensor, torch.Tensor, List[str]]:
     """Evaluate whether frames are accepted for geometric repair.
 
@@ -80,6 +81,7 @@ def evaluate_gate(
         q_off: Statistical open threshold max(q_cal, eta)
         eta: Envelope radius eta_used
         nu: Threat/noise budget nu
+        margin_gamma: Singleton margin requirement d_(2) - d_(1) >= margin_gamma
 
     Returns:
         is_accepted: (N,) boolean tensor, True if frame is accepted for repair
@@ -109,7 +111,18 @@ def evaluate_gate(
         if num_feasible == 0:
             rejection_reasons.append("feasible_empty")
         elif num_feasible > 1:
-            rejection_reasons.append("feasible_ambiguous_multiple")
+            if margin_gamma > 0.0:
+                sorted_d, sorted_idx = torch.sort(dists)
+                if (sorted_d[1] - sorted_d[0]).item() >= margin_gamma:
+                    # Singleton margin separation satisfied
+                    best_c = int(sorted_idx[0].item())
+                    is_accepted[i] = True
+                    target_class[i] = best_c
+                    rejection_reasons.append("accepted")
+                else:
+                    rejection_reasons.append("feasible_ambiguous_multiple")
+            else:
+                rejection_reasons.append("feasible_ambiguous_multiple")
         else:
             # Singleton accepted!
             best_c = int(torch.nonzero(feasible_mask, as_tuple=True)[0][0].item())
@@ -118,3 +131,4 @@ def evaluate_gate(
             rejection_reasons.append("accepted")
 
     return is_accepted, target_class, rejection_reasons
+
