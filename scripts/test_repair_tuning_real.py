@@ -7,7 +7,7 @@ from transformers import AutoProcessor, AutoModelForSpeechSeq2Seq
 
 from phonorepair.artifacts.schema import load_artifact
 from phonorepair.evaluation.normalizer import normalize_text_v1
-from phonorepair.evaluation.wer import compute_wer_counts, compute_corpus_wer
+from phonorepair.evaluation.metrics import compute_wer_counts, compute_corpus_wer
 from phonorepair.core.geometry import read_coordinates, lift_coordinates, project_to_patch, compute_patch_distance, compute_all_patch_distances
 from phonorepair.core.gate import aggregate_class_distances
 
