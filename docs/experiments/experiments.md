@@ -10,9 +10,10 @@ Tài liệu này ghi lại toàn bộ lịch sử các lượt chạy thực ngh
 - **Phần cứng:** NVIDIA GeForce RTX 3050 Laptop GPU (4GB VRAM), AMD Ryzen CPU, 16GB RAM
 - **Hệ điều hành:** Windows 11 (PowerShell)
 - **Môi trường Python:** Conda env `phonorepair` (Python 3.10.22, PyTorch 2.5.1+cu121, Transformers 4.49.0)
-- **Mã nguồn commit:** [`ac9ebe7`](https://github.com/Thanhdat3010/PhonoRepair)
-- **Mã SHA256 Code Bundle Lock:** Lưu tại [`outputs/locks/bundle_manifest.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/locks/bundle_manifest.json) (25 tệp mã nguồn được giám sát)
+- **Mã nguồn commit:** [`4242f89`](https://github.com/Thanhdat3010/PhonoRepair)
+- **Mã SHA256 Code Bundle Lock:** Lưu tại [`outputs/locks/bundle_manifest.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/locks/bundle_manifest.json) (29 tệp mã nguồn được giám sát)
 - **Mã SHA256 Dữ liệu Manifests:** Khóa trong [`data/manifests/checksums.sha256`](file:///d:/HCMUS/NCKH/PhonoRepair/data/manifests/checksums.sha256)
+- **Giao thức Chống Trôi dạt Baseline:** Quy định chi tiết tại [`docs/BASELINE_LOCKING_AND_ANTI_DRIFT_PROTOCOL.md`](file:///d:/HCMUS/NCKH/PhonoRepair/docs/BASELINE_LOCKING_AND_ANTI_DRIFT_PROTOCOL.md)
 
 ---
 
@@ -106,12 +107,28 @@ Tài liệu này ghi lại toàn bộ lịch sử các lượt chạy thực ngh
 
 ---
 
+### Thực nghiệm 7: Bộ nạp Dữ liệu Bệnh (UASpeech & TORGO Data Loaders) & Bộ Kiểm thử Đơn vị Mở rộng
+- **Mục tiêu:** Xây dựng cấu trúc dữ liệu `DatasetRecord` chuẩn hóa cho dữ liệu tiếng nói bệnh, nạp chính xác kênh âm thanh (M5 cho UASpeech, `wav_headMic` cho TORGO) và thực thi nghiêm ngặt các quy tắc loại trừ nhãn nhiễu `xxx` theo Proposal Section 12 E5.
+- **Lệnh chạy:**
+  ```powershell
+  python scripts/prepare_target_datasets.py --generate-pilot-mocks
+  pytest tests/ -v
+  ```
+- **Kết quả:**
+  - **20/20 unit tests PASSED** trong 3.28s (thêm 5 unit tests mới cho serialization, filename parsing, word table lookup, prompt cleaning và mock scanning).
+  - Tự động sinh và kiểm thử cấu trúc mock của UASpeech (6 câu, 4 nhóm mức độ bệnh) và TORGO (4 câu, tách biệt sentence và word tasks).
+  - Giao thức mã hóa SHA256 checksum tự động cập nhật và khóa dữ liệu manifests.
+
+---
+
 ## 3. Tổng kết Tình trạng Deliverables
 
 | Hạng mục | Trạng thái | Vị trí lưu trữ |
 | :--- | :---: | :--- |
 | Mã nguồn cốt lõi (`phonorepair`) | Hoàn thành | [`src/phonorepair/`](file:///d:/HCMUS/NCKH/PhonoRepair/src/phonorepair/) |
-| Bảng khóa bundle mã nguồn | Hoàn thành | [`outputs/locks/bundle_manifest.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/locks/bundle_manifest.json) |
+| Bộ nạp dữ liệu bệnh UASpeech & TORGO | Hoàn thành | [`src/phonorepair/data/`](file:///d:/HCMUS/NCKH/PhonoRepair/src/phonorepair/data/) |
+| Bảng khóa bundle mã nguồn (29 files) | Hoàn thành | [`outputs/locks/bundle_manifest.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/locks/bundle_manifest.json) |
+| Giao thức Khóa Baseline & Chống Trôi dạt | Hoàn thành | [`docs/BASELINE_LOCKING_AND_ANTI_DRIFT_PROTOCOL.md`](file:///d:/HCMUS/NCKH/PhonoRepair/docs/BASELINE_LOCKING_AND_ANTI_DRIFT_PROTOCOL.md) |
 | Dữ liệu manifest & checksum | Hoàn thành | [`data/manifests/`](file:///d:/HCMUS/NCKH/PhonoRepair/data/manifests/) |
 | Artifact đã hiệu chuẩn ($w = 2.17$) | Hoàn thành | [`outputs/artifacts/whisper_base_artifact.pt`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/artifacts/whisper_base_artifact.pt) |
 | Báo cáo kết quả JSON E2, E6, E10 | Hoàn thành | [`outputs/reports/`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/reports/) |

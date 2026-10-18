@@ -76,7 +76,23 @@ Với mức rủi ro $\beta = 0.01$ (đảm bảo $\ge 99\%$ tiếng sạch khô
 
 ---
 
-## 5. Kết luận & Tác động đến Bản thảo Interspeech 2027
+## 5. Bản chất và Tầm quan trọng Sống còn của Khóa Baseline (Anti-Baseline Drift)
+
+### Cạm bẫy "Trôi dạt Baseline" trong nghiên cứu Adapter
+Trong nhiều bài báo nghiên cứu về speech enhancement / adapter, hiện tượng thổi phồng WERR (Word Error Rate Reduction) rất thường xảy ra một cách vô ý do:
+1. **Lệch cấu hình giải mã:** Baseline chạy với greedy decoding nhưng Adapter chạy với beam search hoặc temperature khác nhau.
+2. **Lệch Normalizer:** Baseline dùng bộ normalizer mặc định của thư viện (ví dụ Whisper English normalizer), trong khi bản repair dùng normalizer tuỳ biến lược bỏ bớt từ viết tắt hoặc dấu câu, làm WER của repair thấp hơn một cách giả tạo.
+3. **Mất tính ghép đôi (Unpaired Inference):** Chạy baseline và adapter ở hai thời điểm khác nhau, trên hai phiên bản thư viện hoặc phần cứng khác nhau dẫn tới sai khác số học dấu phẩy động.
+
+### Giải pháp Kiến trúc PhonoRepair
+Văn bản quy định [`docs/BASELINE_LOCKING_AND_ANTI_DRIFT_PROTOCOL.md`](file:///d:/HCMUS/NCKH/PhonoRepair/docs/BASELINE_LOCKING_AND_ANTI_DRIFT_PROTOCOL.md) đã thiết lập 6 tầng bảo vệ:
+- **Khóa cặp nghiệm ngặt (Strict Paired Evaluation):** Cả Baseline và PhonoRepair chạy trên cùng một luồng suy luận cho từng câu, dùng cùng cấu hình greedy `temperature = 0.0`, `num_beams = 1`, `initial_prompt = None`.
+- **Hàm Normalizer v1 độc quyền bất biến:** Toàn bộ transcript tham chiếu và dự đoán đều chạy qua `normalize_text_v1` để triệt tiêu 100% sai khác về định dạng chuỗi.
+- **Biên bản WORM Receipt:** Khóa mã hash của code, manifest và checkpoint để bảo đảm tính trung thực tuyệt đối trước cộng đồng khoa học Interspeech.
+
+---
+
+## 6. Kết luận & Tác động đến Bản thảo Interspeech 2027
 
 1. **Tính khả thi của bảng kết quả (Table 1 & Table 2):** Các công thức, độ đo và bộ đếm đã được tích hợp hoàn chỉnh và kiểm chứng bằng code thật, sẵn sàng để điền các giá trị đo đạc trên UASpeech/TORGO.
 2. **Thời gian suy luận (Latency & Vectorization):** Việc vector hóa hàm `repair_sequence` trên PyTorch CUDA tensor đã đưa thời gian can thiệp trung bình xuống **dưới 1 ms / câu**, hoàn toàn đáp ứng yêu cầu suy luận thời gian thực cho bài báo.
