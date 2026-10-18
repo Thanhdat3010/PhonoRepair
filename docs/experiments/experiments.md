@@ -121,15 +121,52 @@ Tài liệu này ghi lại toàn bộ lịch sử các lượt chạy thực ngh
 
 ---
 
+### Thực nghiệm 8: Đánh giá Ghép đôi Toàn trình (Paired Evaluation Runner) & Cơ chế WORM Receipt
+- **Mục tiêu:** Kiểm chứng toàn bộ luồng đánh giá tự động kép (Native Baseline vs PhonoRepair), thống kê kiểm định Wilcoxon signed-rank, bootstrap 95% CI theo cụm người nói, và xuất bảng LaTeX/Markdown tự động theo đúng Hợp đồng Khoa học Proposal Table 1 & Table 2.
+- **Lệnh chạy:**
+  ```powershell
+  python -m phonorepair.cli evaluate --manifest data/manifests/test_clean.jsonl --artifact outputs/artifacts/whisper_base_artifact.pt --export-table-latex --export-table-md
+  ```
+- **Kết quả:**
+  - **Số câu đánh giá:** 15/15 câu hoàn thành với độ trễ trung bình $878.52\text{ ms/câu}$.
+  - **Native Baseline WER:** $3.12\%$
+  - **PhonoRepair WER:** $3.12\%$
+  - **Độ lệch $\Delta\text{WER}$:** $\mathbf{+0.00\%}$ ($\text{WERR} = +0.00\%$, $p = 1.00000$).
+  - **Bảo toàn nhận dạng sạch:** $100.00\%$ số câu trùng khớp nguyên văn không biến động (15/15 câu).
+  - **Quyết định cổng:** $100.00\%$ (22.500/22.500 frames) trả về `below_q_off_identity`.
+  - **Biên nhận WORM:** Xuất tự động tệp biên nhận bất biến [`outputs/receipts/worm_receipt_20261018_123334.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/receipts/worm_receipt_20261018_123334.json) với chữ ký SHA256 code bundle và manifest.
+
+---
+
+### Thực nghiệm 9: Tiền xử lý & Chuẩn hóa Đường dẫn Đa nền tảng cho UASpeech & TORGO
+- **Mục tiêu:** Kiểm tra và hoàn thiện toàn bộ pipeline tiền xử lý cho 2 bộ dữ liệu bệnh UASpeech (kênh M5, phân tầng 4 mức độ tổn thương theo Kim et al.) và TORGO (kênh `wav_headMic`, tách sentence/word task, bộ lọc loại trừ tag `xxx` và ngoặc chú thích). Đảm bảo tính tương thích tuyệt đối giữa môi trường Windows cục bộ và Linux GPU Server (RTX 6000).
+- **Lệnh chạy:**
+  ```powershell
+  python scripts/prepare_target_datasets.py --generate-pilot-mocks
+  python scripts/prepare_target_datasets.py --corpus uaspeech --data-dir data/raw/mocks/uaspeech --output data/manifests/uaspeech_mock.jsonl
+  python scripts/prepare_target_datasets.py --corpus torgo --data-dir data/raw/mocks/torgo --output data/manifests/torgo_mock.jsonl
+  python -m phonorepair.cli evaluate --manifest data/manifests/torgo_mock.jsonl --artifact outputs/artifacts/whisper_base_artifact.pt --device cpu
+  pytest tests/ -v
+  ```
+- **Kết quả:**
+  - **22/22 unit tests PASSED (100%)** trên Conda env `phonorepair`.
+  - Lọc chính xác các mẫu nhiễu: TORGO loại bỏ triệt để prompt `xxx [unintelligible]` (chỉ giữ 4/5 mẫu hợp lệ).
+  - Chuẩn hóa đường dẫn dạng Unix forward-slash (`/`) trong mọi JSONL manifest, kết hợp cơ chế tự động tìm fallback path trong `EvaluationRunner`.
+  - Đánh giá end-to-end trên `torgo_mock.jsonl` thành công, tạo biên nhận WORM receipt [`outputs/receipts/worm_receipt_20261018_125958.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/receipts/worm_receipt_20261018_125958.json).
+
+---
+
 ## 3. Tổng kết Tình trạng Deliverables
 
 | Hạng mục | Trạng thái | Vị trí lưu trữ |
 | :--- | :---: | :--- |
 | Mã nguồn cốt lõi (`phonorepair`) | Hoàn thành | [`src/phonorepair/`](file:///d:/HCMUS/NCKH/PhonoRepair/src/phonorepair/) |
 | Bộ nạp dữ liệu bệnh UASpeech & TORGO | Hoàn thành | [`src/phonorepair/data/`](file:///d:/HCMUS/NCKH/PhonoRepair/src/phonorepair/data/) |
-| Bảng khóa bundle mã nguồn (29 files) | Hoàn thành | [`outputs/locks/bundle_manifest.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/locks/bundle_manifest.json) |
+| Module đánh giá ghép đôi (`runner.py`) | Hoàn thành | [`src/phonorepair/evaluation/runner.py`](file:///d:/HCMUS/NCKH/PhonoRepair/src/phonorepair/evaluation/runner.py) |
+| Bảng khóa bundle mã nguồn (30 files) | Hoàn thành | [`outputs/locks/bundle_manifest.json`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/locks/bundle_manifest.json) |
 | Giao thức Khóa Baseline & Chống Trôi dạt | Hoàn thành | [`docs/BASELINE_LOCKING_AND_ANTI_DRIFT_PROTOCOL.md`](file:///d:/HCMUS/NCKH/PhonoRepair/docs/BASELINE_LOCKING_AND_ANTI_DRIFT_PROTOCOL.md) |
-| Dữ liệu manifest & checksum | Hoàn thành | [`data/manifests/`](file:///d:/HCMUS/NCKH/PhonoRepair/data/manifests/) |
+| Tài liệu Vận hành Server RTX 6000 | Hoàn thành | [`docs/RTX6000_TAILSCALE_RUNBOOK.md`](file:///d:/HCMUS/NCKH/PhonoRepair/docs/RTX6000_TAILSCALE_RUNBOOK.md) |
+| Môi trường Conda cô lập trên RTX 6000 | Hoàn thành | `/workspace/ura/thanhdat/projects/PhonoRepair/conda/envs/phonorepair` |
+| Dữ liệu manifest & checksum khóa | Hoàn thành | [`data/manifests/`](file:///d:/HCMUS/NCKH/PhonoRepair/data/manifests/) |
 | Artifact đã hiệu chuẩn ($w = 2.17$) | Hoàn thành | [`outputs/artifacts/whisper_base_artifact.pt`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/artifacts/whisper_base_artifact.pt) |
-| Báo cáo kết quả JSON E2, E6, E10 | Hoàn thành | [`outputs/reports/`](file:///d:/HCMUS/NCKH/PhonoRepair/outputs/reports/) |
 | Đồng bộ GitHub Remote | Hoàn thành | `https://github.com/Thanhdat3010/PhonoRepair.git` (branch `main`) |

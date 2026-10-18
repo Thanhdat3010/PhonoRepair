@@ -160,12 +160,22 @@ class EvaluationRunner:
             if not ref_tokens:
                 continue
 
-            # Load audio
-            if not os.path.exists(audio_path):
-                print(f"    [!] Warning: Audio file missing: {audio_path}. Skipping.")
-                continue
+            # Load audio with portable path resolution
+            target_audio_path = audio_path
+            if not os.path.exists(target_audio_path):
+                # Try relative to manifest directory or project root
+                manifest_dir = os.path.dirname(os.path.abspath(manifest_path))
+                alt_manifest = os.path.join(manifest_dir, os.path.basename(audio_path))
+                alt_root = os.path.join(os.getcwd(), audio_path.replace("\\", os.sep).replace("/", os.sep))
+                if os.path.exists(alt_manifest):
+                    target_audio_path = alt_manifest
+                elif os.path.exists(alt_root):
+                    target_audio_path = alt_root
+                else:
+                    print(f"    [!] Warning: Audio file missing: {audio_path}. Skipping.")
+                    continue
 
-            audio_data, sr = sf.read(audio_path)
+            audio_data, sr = sf.read(target_audio_path)
             if audio_data.ndim > 1:
                 audio_data = np.mean(audio_data, axis=1)
 

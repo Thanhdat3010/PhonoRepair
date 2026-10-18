@@ -137,7 +137,7 @@ class TORGOLoader:
                     if task_filter and task_type != task_filter:
                         continue
 
-                    audio_path = os.path.join(audio_dir, a_file)
+                    audio_path = os.path.normpath(os.path.join(audio_dir, a_file)).replace("\\", "/")
                     try:
                         info = sf.info(audio_path)
                         duration = info.duration

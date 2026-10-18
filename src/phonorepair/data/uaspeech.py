@@ -157,7 +157,7 @@ class UASpeechLoader:
                 if not norm_text:
                     continue
 
-                audio_path = os.path.join(root, file)
+                audio_path = os.path.normpath(os.path.join(root, file)).replace("\\", "/")
 
                 # Audio validation
                 try:
