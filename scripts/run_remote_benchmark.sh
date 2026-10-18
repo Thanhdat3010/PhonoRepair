@@ -17,6 +17,7 @@ if [ -f "environment.sh" ]; then
     echo "[*] Sourcing environment.sh..."
     source environment.sh
 fi
+export PYTHONUNBUFFERED=1
 
 # 2. Check Python and PyTorch
 echo "[*] Python executable: $(which python)"
