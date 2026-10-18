@@ -25,7 +25,8 @@ data/processed/audio/
 
 # Model checkpoints & large binary outputs
 checkpoints/
-outputs/artifacts/
+outputs/artifacts/*
+!outputs/artifacts/*.pt
 outputs/reports/
 !outputs/locks/
 !outputs/locks/**

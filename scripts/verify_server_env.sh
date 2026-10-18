@@ -45,12 +45,14 @@ python -m phonorepair.cli verify-lock --code-dir src/phonorepair --manifest outp
 echo -e "\n[*] Executing unit tests (22 tests)..."
 pytest tests/ -v
 
-# Smoke paired evaluation on clean manifest
-echo -e "\n[*] Executing smoke paired evaluation on test_clean.jsonl (first 3 samples)..."
+# Smoke paired evaluation on mock dysarthric manifest
+echo -e "\n[*] Generating mock datasets for smoke evaluation..."
+python scripts/prepare_target_datasets.py --generate-pilot-mocks
+
+echo -e "\n[*] Executing smoke paired evaluation on torgo_mock.jsonl on CUDA..."
 python -m phonorepair.cli evaluate \
-    --manifest data/manifests/test_clean.jsonl \
+    --manifest data/manifests/torgo_mock.jsonl \
     --artifact outputs/artifacts/whisper_base_artifact.pt \
-    --max-samples 3 \
     --device cuda:0
 
 echo -e "\n================================================================="
