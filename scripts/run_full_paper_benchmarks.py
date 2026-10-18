@@ -243,6 +243,7 @@ def main():
 
     # Save master benchmark JSON
     master_json_path = "outputs/reports/master_benchmark_results.json"
+    os.makedirs(os.path.dirname(master_json_path), exist_ok=True)
     with open(master_json_path, "w", encoding="utf-8") as f:
         json.dump(all_results, f, indent=2)
 
