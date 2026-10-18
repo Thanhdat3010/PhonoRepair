@@ -1,0 +1,15 @@
+model_contract:
+  model_id: "Z1"
+  model_name: "Streaming Zipformer Transducer"
+  hf_repo: "Zengwei/icefall-asr-librispeech-streaming-zipformer-2023-05-17"
+  observed_hf_revision: "37cb5606808f3d5e55a3fc73554bdf757d82465a"
+  architecture: "zipformer_transducer"
+  encoder_module: "model.encoder"
+  feature_dim: 512
+  timebase_subsampling: 4
+  sample_rate: 16000
+  layout: "batch_sequence_dim"
+  decoding_mode: "greedy_transducer"
+  decoding_kwargs:
+    max_sym_per_frame: 1
+  stateful: true

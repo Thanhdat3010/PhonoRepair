@@ -1,0 +1,33 @@
+# Environment & Secrets
+.env
+*.env
+*.pem
+*.key
+
+# Python & Jupyter
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Caches & Temp
+cache/
+tmp/
+logs/
+.pytest_cache/
+*.egg-info/
+
+# Large audio & tensor files
+data/processed/audio/
+*.wav
+*.flac
+*.mp3
+
+# Model checkpoints & large binary outputs
+checkpoints/
+outputs/artifacts/
+outputs/reports/
+!outputs/locks/
+!outputs/locks/**
+results/
+scratch/

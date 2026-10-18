@@ -1,0 +1,32 @@
+{
+  "protocol_version": "7.1",
+  "run_name": "interspeech_main_pilot",
+  "created_date": "2026-10-18",
+  "random_seeds": {
+    "split_seed": 17,
+    "bootstrap_seed": 20261013,
+    "synthetic_dev_seed": 20261017,
+    "synthetic_holdout_seed": 20261018
+  },
+  "precision": "float32",
+  "checkpoints": {
+    "W1": {
+      "hf_repo": "openai/whisper-base.en",
+      "revision": "911407f4214e0e1d82085af863093ec0b66f9cd6"
+    },
+    "C1": {
+      "hf_repo": "nvidia/stt_en_conformer_ctc_large",
+      "revision": "5f18b90411b9fdfc9b52b8caf636f204491afb01"
+    },
+    "Z1": {
+      "hf_repo": "Zengwei/icefall-asr-librispeech-streaming-zipformer-2023-05-17",
+      "revision": "37cb5606808f3d5e55a3fc73554bdf757d82465a"
+    }
+  },
+  "evaluation_rules": {
+    "normalizer": "v1_nfkc_lowercase_digit_to_word",
+    "clean_non_inferiority_alpha": 0.01667,
+    "disease_superiority_alpha": 0.00833,
+    "min_relative_werr": 0.05
+  }
+}

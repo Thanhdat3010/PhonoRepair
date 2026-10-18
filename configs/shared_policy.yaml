@@ -1,0 +1,66 @@
+policy_version: phonorepair-v7.1
+seeds:
+  source_split: 17
+  bootstrap: 20261013
+  kernel_cases: [0, 1, 2, 3, 4]
+source_only: true
+online_updates: false
+boundary: acoustic_encoder_output
+scope:
+  primary_models: [W1, Z1, C1]
+  primary_disease_pairs: 6
+  general_claim_rule: section_4_3
+  realtime_sla_required_for_main: false
+  onboarding_minutes_required_for_main: false
+  transcript_certificate_required_for_main: false
+synthetic_pilot:
+  development_source: clean_selection
+  evaluation_source: clean_speaker_holdout
+  max_utterances_per_split: 100
+  development_seed: 20261017
+  evaluation_seed: 20261018
+  directions: [patch_tangent, patch_normal, competing_class]
+  noise_to_nu_ratios: [0, 0.25, 0.5, 1, 2]
+  candidate_ranking_uses_synthetic: false
+  final_calibration_reselection: false
+statistics:
+  family_alpha: 0.05
+  disease_ci: two_sided_bonferroni_6
+  clean_upper_bound: one_sided_bonferroni_3
+  relative_werr_point_target: 0.05
+preprocessing_controls:
+  time_stretch_rates: [0.8, 1.2]
+  choose_target_winner: false
+basis:
+  kinds: [pca, fisher_qr, identity]
+  ranks: [32, 64, 128, 256, full]
+dictionary:
+  patch_counts: [64, 128, 256]
+  patch_dimensions: [0, 2, 4]
+  allocation: equal_per_class_then_label_order
+  max_fit_frames_per_class: 5000
+  neighborhood_size: 128
+  anchor_init: smallest_sample_id
+  anchor_selection: farthest_first
+  radius: max_neighbor_projected_norm
+routing:
+  full_search: true
+  global_lambda: 0.5
+  local_gap_quantile: 0.10
+  local_gap_multiplier: 0.25
+gate:
+  beta: 0.01
+  calibration_unit: speaker_block
+  speakers: 100
+  episodes_per_block: 10
+  max_episode_seconds: 30
+  final_threshold: max_calibration_and_envelope
+  fusion: hard_identity_or_projection
+resources:
+  artifact_mib: 16
+  repair_working_memory_mib: 64
+  repair_p99_ms: 5
+realtime_extension:
+  eligible_streaming_p99_ms: 250
+  end_to_end_rtf: 0.8
+  deadline_miss_percent: 0.1

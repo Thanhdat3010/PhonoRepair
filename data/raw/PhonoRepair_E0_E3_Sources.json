@@ -1,0 +1,444 @@
+{
+  "schema_version": "1.0",
+  "document_date": "2026-10-18",
+  "sources_checked_date": "2026-10-17",
+  "proposal_file": "PhonoRepair_Proposal_v7.md",
+  "proposal_version": "7.1",
+  "scope": "Resources and protocol specifications for E0-E3; no experiments executed or corpus downloaded.",
+  "resources": [
+    {
+      "id": "W1",
+      "type": "backbone",
+      "experiments": [
+        "E0",
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "title": "Whisper base.en",
+      "paper_url": "https://proceedings.mlr.press/v202/radford23a.html",
+      "artifact_url": "https://huggingface.co/openai/whisper-base.en",
+      "implementation_url": "https://github.com/openai/whisper",
+      "observed_hf_revision": "911407f4214e0e1d82085af863093ec0b66f9cd6",
+      "access": "public",
+      "notes": "Native OpenAI weights/code must be pinned separately from HF conversion."
+    },
+    {
+      "id": "Z1",
+      "type": "backbone",
+      "experiments": [
+        "E0",
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "title": "Streaming Zipformer",
+      "paper_url": "https://arxiv.org/abs/2310.11230",
+      "artifact_url": "https://huggingface.co/Zengwei/icefall-asr-librispeech-streaming-zipformer-2023-05-17",
+      "implementation_url": "https://github.com/k2-fsa/icefall/pull/1058",
+      "observed_hf_revision": "37cb5606808f3d5e55a3fc73554bdf757d82465a",
+      "access": "public",
+      "notes": "Resolve native weights, averaging, chunk/context and code version before feature extraction."
+    },
+    {
+      "id": "C1",
+      "type": "backbone",
+      "experiments": [
+        "E0",
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "title": "NeMo Conformer CTC Large",
+      "paper_url": "https://arxiv.org/abs/2005.08100",
+      "artifact_url": "https://huggingface.co/nvidia/stt_en_conformer_ctc_large",
+      "implementation_url": "https://docs.nvidia.com/nemo-framework/user-guide/latest/nemotoolkit/asr/models.html",
+      "observed_hf_revision": "5f18b90411b9fdfc9b52b8caf636f204491afb01",
+      "access": "public",
+      "notes": "Artifact file: stt_en_conformer_ctc_large.nemo; architecture paper is not a paper for this exact checkpoint training run."
+    },
+    {
+      "id": "CTC",
+      "type": "method",
+      "experiments": [
+        "E1"
+      ],
+      "title": "Connectionist Temporal Classification",
+      "paper_url": "https://www.cs.toronto.edu/~graves/icml_2006.pdf",
+      "artifact_url": null,
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "public",
+      "notes": "Loss/decoding reference; custom linear phone-probe protocol specified in report."
+    },
+    {
+      "id": "RNNT",
+      "type": "method",
+      "experiments": [
+        "E0"
+      ],
+      "title": "Sequence Transduction with Recurrent Neural Networks",
+      "paper_url": "https://arxiv.org/abs/1211.3711",
+      "artifact_url": null,
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "public",
+      "notes": "Decoder foundation, not checkpoint-specific cache contract."
+    },
+    {
+      "id": "LS",
+      "type": "dataset",
+      "experiments": [
+        "E0",
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "title": "LibriSpeech",
+      "paper_url": "https://www.danielpovey.com/files/2015_icassp_librispeech.pdf",
+      "artifact_url": "https://huggingface.co/datasets/openslr/librispeech_asr",
+      "implementation_url": "https://www.openslr.org/12",
+      "observed_hf_revision": "71cacbfb7e2354c4226d01e70d77d5fca3d04ba1",
+      "access": "public_cc_by_4_0",
+      "notes": "Parquet audio/text/speaker metadata; no verified manual phone annotation in this distribution."
+    },
+    {
+      "id": "TIMIT",
+      "type": "dataset",
+      "experiments": [
+        "E1",
+        "E2"
+      ],
+      "title": "TIMIT LDC93S1",
+      "paper_url": "https://catalog.ldc.upenn.edu/LDC93S1",
+      "artifact_url": "https://huggingface.co/datasets/timit-asr/timit_asr",
+      "implementation_url": "https://huggingface.co/datasets/timit-asr/timit_asr/blob/a92396bd1b08354e525a44cd966b019df2139d6c/timit_asr.py",
+      "observed_hf_revision": "a92396bd1b08354e525a44cd966b019df2139d6c",
+      "access": "licensed_manual_download",
+      "notes": "HF repo contains loader, not audio/PHN corpus. E2 TEST diagnostic only after lock."
+    },
+    {
+      "id": "MFA",
+      "type": "aligner",
+      "experiments": [
+        "E1",
+        "E2"
+      ],
+      "title": "Montreal Forced Aligner",
+      "paper_url": "https://www.isca-archive.org/interspeech_2017/mcauliffe17_interspeech.html",
+      "artifact_url": "https://github.com/MontrealCorpusTools/mfa-models/releases/tag/acoustic-english_us_arpa-v3.0.0",
+      "implementation_url": "https://montreal-forced-aligner.readthedocs.io/en/latest/user_guide/workflows/alignment.html",
+      "observed_hf_revision": null,
+      "access": "public_model_release",
+      "notes": "Pin runtime/model/dictionary/options. CSV/JSON output supported; alignments are generated labels."
+    },
+    {
+      "id": "MFA_DICT",
+      "type": "lexicon",
+      "experiments": [
+        "E1",
+        "E2"
+      ],
+      "title": "English US ARPA dictionary v3.0.0",
+      "paper_url": null,
+      "artifact_url": "https://mfa-models.readthedocs.io/en/latest/dictionary/English/English%20%28US%29%20ARPA%20dictionary%20v3_0_0.html",
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "public_model_documentation",
+      "notes": "Resolve release asset and checksum before use."
+    },
+    {
+      "id": "TORGO",
+      "type": "dataset_optional",
+      "experiments": [
+        "E3"
+      ],
+      "title": "TORGO healthy controls",
+      "paper_url": "https://link.springer.com/article/10.1007/s10579-011-9145-0",
+      "artifact_url": "https://www.cs.toronto.edu/~complingweb/data/TORGO/torgo.html",
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "corpus_terms_apply",
+      "notes": "Controls after lock; derive audio/reference/channel manifest; no complete official CSV/JSON verified."
+    },
+    {
+      "id": "UASPEECH",
+      "type": "dataset_optional",
+      "experiments": [
+        "E3"
+      ],
+      "title": "UASpeech healthy controls",
+      "paper_url": "https://www.isca-archive.org/interspeech_2008/kim08c_interspeech.html",
+      "artifact_url": "https://speechtechnology.web.illinois.edu/uaspeech/",
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "permission_required",
+      "notes": "Controls after lock; obtain authorized corpus then derive manifest."
+    },
+    {
+      "id": "CVXPY",
+      "type": "reference_tool",
+      "experiments": [
+        "E0"
+      ],
+      "title": "CVXPY",
+      "paper_url": "https://www.jmlr.org/papers/v17/15-408.html",
+      "artifact_url": null,
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "public_paper",
+      "notes": "Use norm-ball capable solver for convex QCQP/conic reference; log status/tolerance."
+    },
+    {
+      "id": "HOOKS",
+      "type": "implementation_docs",
+      "experiments": [
+        "E0"
+      ],
+      "title": "PyTorch Module hooks",
+      "paper_url": null,
+      "artifact_url": null,
+      "implementation_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.Module.html",
+      "observed_hf_revision": null,
+      "access": "public_docs",
+      "notes": "Actual decoder-consumer checks required; hooks alone do not prove integration."
+    },
+    {
+      "id": "GONZALEZ",
+      "type": "method",
+      "experiments": [
+        "E2"
+      ],
+      "title": "Farthest-first clustering",
+      "paper_url": "https://www.cs.columbia.edu/~verma/classes/uml/ref/clustering_minimize_intercluster_distance_gonzalez.pdf",
+      "artifact_url": null,
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "public_paper_copy",
+      "notes": "Anchor covering; not affine optimum certificate."
+    },
+    {
+      "id": "LKF",
+      "type": "related_method",
+      "experiments": [
+        "E2"
+      ],
+      "title": "Localized K-Flats",
+      "paper_url": "https://ojs.aaai.org/index.php/AAAI/article/view/7912",
+      "artifact_url": null,
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "public_paper",
+      "notes": "Related local affine approximation; no claim of exact reproduction."
+    },
+    {
+      "id": "PCA",
+      "type": "method",
+      "experiments": [
+        "E2"
+      ],
+      "title": "Pearson 1901 PCA",
+      "paper_url": "https://doi.org/10.1080/14786440109462720",
+      "artifact_url": null,
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "publisher_access_unavailable_during_lookup",
+      "notes": "Bibliographic reference; implementation specified in report."
+    },
+    {
+      "id": "FISHER",
+      "type": "method",
+      "experiments": [
+        "E2"
+      ],
+      "title": "Fisher discriminant directions",
+      "paper_url": "https://doi.org/10.1111/j.1469-1809.1936.tb02137.x",
+      "artifact_url": null,
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "public_paper_page",
+      "notes": "Regularization, QR, rank handling are custom implementation choices."
+    },
+    {
+      "id": "CONFORMAL",
+      "type": "statistical_method",
+      "experiments": [
+        "E2",
+        "E3"
+      ],
+      "title": "Rank calibration",
+      "paper_url": "https://arxiv.org/abs/2107.07511",
+      "artifact_url": null,
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "public_paper",
+      "notes": "Speaker-block intervention construction is proposal-specific."
+    },
+    {
+      "id": "SCTK",
+      "type": "metric_tool",
+      "experiments": [
+        "E3"
+      ],
+      "title": "NIST SCTK",
+      "paper_url": null,
+      "artifact_url": null,
+      "implementation_url": "https://github.com/usnistgov/SCTK",
+      "observed_hf_revision": null,
+      "access": "public_code",
+      "notes": "WER normalization and aggregation must be pinned."
+    },
+    {
+      "id": "JIWER",
+      "type": "metric_tool",
+      "experiments": [
+        "E1",
+        "E3"
+      ],
+      "title": "JiWER",
+      "paper_url": null,
+      "artifact_url": null,
+      "implementation_url": "https://jitsi.github.io/jiwer/",
+      "observed_hf_revision": null,
+      "access": "public_docs",
+      "notes": "Edit metric implementation; phone tokenization for PER is custom."
+    },
+    {
+      "id": "BOOTSTRAP",
+      "type": "statistical_method",
+      "experiments": [
+        "E3"
+      ],
+      "title": "Bootstrap estimates for confidence intervals in ASR performance evaluation",
+      "paper_url": "https://publications.rwth-aachen.de/record/112688/",
+      "artifact_url": null,
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "public_publication_record",
+      "notes": "Paired speaker clusters, replicate count and multiplicity family are research protocol."
+    },
+    {
+      "id": "CLOPPER_PEARSON",
+      "type": "statistical_method",
+      "experiments": [
+        "E3"
+      ],
+      "title": "Binomial confidence bounds",
+      "paper_url": "https://doi.org/10.1093/biomet/26.4.404",
+      "artifact_url": null,
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "publisher_full_text_unavailable_during_lookup",
+      "notes": "Zero-event one-sided bound derived explicitly in report."
+    },
+    {
+      "id": "SUTA",
+      "type": "competitor_optional",
+      "experiments": [
+        "E3"
+      ],
+      "title": "Source-free single-utterance test-time adaptation",
+      "paper_url": "https://www.isca-archive.org/interspeech_2022/lin22b_interspeech.html",
+      "artifact_url": null,
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "public_paper",
+      "notes": "Separate target-update setting; not a mandatory E0-E3 gate."
+    },
+    {
+      "id": "DSUTA",
+      "type": "competitor_optional",
+      "experiments": [
+        "E3"
+      ],
+      "title": "Continual test-time adaptation for ASR",
+      "paper_url": "https://arxiv.org/abs/2406.11064",
+      "artifact_url": null,
+      "implementation_url": null,
+      "observed_hf_revision": null,
+      "access": "public_paper",
+      "notes": "Separate target-update setting; freeze stream/reset policy."
+    },
+    {
+      "id": "TIME_STRETCH",
+      "type": "competitor_optional",
+      "experiments": [
+        "E3"
+      ],
+      "title": "Time stretching preprocessing control",
+      "paper_url": "https://www.isca-archive.org/interspeech_2022/prananta22_interspeech.html",
+      "artifact_url": null,
+      "implementation_url": "https://librosa.org/doc/0.11.0/generated/librosa.effects.time_stretch.html",
+      "observed_hf_revision": null,
+      "access": "public_paper_and_docs",
+      "notes": "Fixed rates 0.8/1.2 are proposal arms, not claimed full reproduction."
+    }
+  ],
+  "dataset_endpoints": {
+    "librispeech": {
+      "metadata_json": "https://huggingface.co/api/datasets/openslr/librispeech_asr",
+      "splits_json": "https://datasets-server.huggingface.co/splits?dataset=openslr%2Flibrispeech_asr",
+      "parquet_files_json": "https://datasets-server.huggingface.co/parquet?dataset=openslr%2Flibrispeech_asr",
+      "rows_json_example": "https://datasets-server.huggingface.co/rows?dataset=openslr%2Flibrispeech_asr&config=all&split=train.clean.100&offset=0&length=100",
+      "observed_http_status": 200,
+      "config": "all",
+      "splits": {
+        "train.clean.100": 28539,
+        "train.clean.360": 104014,
+        "validation.clean": 2703,
+        "validation.other": 2864,
+        "test.clean": 2620,
+        "test.other": 2939
+      },
+      "warning": "Viewer endpoints are live and can change; pin dataset revision for downloads. Signed audio URLs are transient. Counts are metadata, not post-exclusion run counts."
+    },
+    "timit": {
+      "metadata_json": "https://huggingface.co/api/datasets/timit-asr/timit_asr",
+      "corpus_hosted_in_hf_repo": false,
+      "requires_licensed_original": true
+    }
+  },
+  "generated_data_requirements": [
+    {
+      "id": "E0_TOY",
+      "source": "Self-generated geometry arrays plus fixed boundary cases",
+      "format": [
+        "json",
+        "npz"
+      ],
+      "status": "recipe_only_not_generated"
+    },
+    {
+      "id": "E1_MANUAL_SOURCE",
+      "source": "Hash-selected LibriSpeech audio, independently annotated phone boundaries",
+      "format": [
+        "jsonl",
+        "csv"
+      ],
+      "status": "manual_annotation_required"
+    },
+    {
+      "id": "MFA_SOURCE_LABELS",
+      "source": "Pinned MFA model/dictionary applied offline to clean source",
+      "format": [
+        "json",
+        "csv",
+        "TextGrid"
+      ],
+      "status": "not_generated"
+    },
+    {
+      "id": "E2_SYNTHETIC",
+      "source": "Locked-backbone clean features; tangent, normal, competing-class directions",
+      "format": [
+        "jsonl",
+        "npz",
+        "parquet"
+      ],
+      "development_seed": 20261017,
+      "holdout_seed": 20261018,
+      "status": "recipe_only_not_generated"
+    }
+  ],
+  "run_lock_status": "not_created; repository SHAs are observed metadata only, not weights checksums or execution validation"
+}
