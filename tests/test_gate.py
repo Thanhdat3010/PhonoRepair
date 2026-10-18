@@ -98,6 +98,8 @@ def test_conformal_calibrator_pilot_fallback():
     cal_art, stats = calibrator.calibrate(spk_blocks, artifact)
     assert stats["is_gate_open"] == 1.0
     assert stats["w"] > 0.0
+    assert not math.isinf(stats["q_cal"])
+
 
 
 def test_gate_margin_gamma_accepted():
@@ -123,6 +125,4 @@ def test_gate_margin_gamma_accepted():
     is_acc, _, reasons = evaluate_gate(class_dists, q_off, eta, nu, margin_gamma=0.40)
     assert not is_acc[0].item()
     assert reasons[0] == "feasible_ambiguous_multiple"
-
-    assert not math.isinf(stats["q_cal"])
 
