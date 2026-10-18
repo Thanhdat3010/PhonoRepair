@@ -125,6 +125,7 @@ def main():
         "torgo_ok": len(torgo_samples) > 0,
         "uaspeech_ok": len(uaspeech_samples) > 0,
     }
+    os.makedirs("outputs/reports", exist_ok=True)
     with open("outputs/reports/dataset_inspection_report.json", "w", encoding="utf-8") as f:
         json.dump({"summary": summary, "torgo": torgo_samples, "uaspeech": uaspeech_samples}, f, indent=2)
     print("\n[+] Inspection report written to: outputs/reports/dataset_inspection_report.json")
