@@ -1,0 +1,104 @@
+{
+  "timestamp_utc": "2026-10-18T05:59:58.493823+00:00",
+  "manifest_evaluated": "torgo_mock.jsonl",
+  "manifest_sha256": "48aa770cdee143ffa7302be1b77feec6dd8ed71ed93ec03aba8896a4f81be9bd",
+  "model_backbone": "openai/whisper-base.en",
+  "provenance": {
+    "git_commit": "9b7703b0fa975cacbad1cdb6c2ed202b567a97d8",
+    "code_bundle_sha256": "f7666bbc2ec277b27c684de9a7488c2470213abb0adff3900bac9c8504faadf0",
+    "artifact_checksum": "7cd7ddd66db9c914e772fbc170b510ddebdde79b0f4bdf090a54bbc2a239c6a7",
+    "platform": "Windows-10-10.0.22631-SP0",
+    "python_version": "3.10.22",
+    "torch_version": "2.5.1+cu121",
+    "cuda_device_name": "NVIDIA GeForce RTX 3050 Laptop GPU"
+  },
+  "overall_metrics": {
+    "num_utterances": 4,
+    "elapsed_seconds": 3.25,
+    "latency_ms_per_utterance": 811.84,
+    "baseline_corpus_wer": 100.0,
+    "repair_corpus_wer": 100.0,
+    "delta_wer": 0.0,
+    "werr_pct": 0.0,
+    "wilcoxon_p_value": 1.0,
+    "bootstrap_delta_mean": 0.0,
+    "bootstrap_95ci": [
+      0.0,
+      0.0
+    ],
+    "statistically_significant": false
+  },
+  "subgroups": {
+    "dysarthric": {
+      "num_utterances": 4,
+      "baseline_wer": 100.0,
+      "repair_wer": 100.0,
+      "delta_wer": 0.0,
+      "werr_pct": 0.0
+    }
+  },
+  "gate_diagnostics": {
+    "total_frames": 6000.0,
+    "accepted_frames": 0.0,
+    "acceptance_rate_pct": 0.0,
+    "total_utterances": 4.0,
+    "corrected_utterances": 0.0,
+    "harmed_utterances": 0.0,
+    "both_correct": 0.0,
+    "both_error": 4.0,
+    "unchanged_hypothesis_pct": 100.0,
+    "reasons_breakdown": {
+      "below_q_off_identity": 6000
+    }
+  },
+  "utterance_samples": [
+    {
+      "utterance_id": "TORGO_F01_Session1_0001",
+      "speaker_id": "F01",
+      "intelligibility": "dysarthric",
+      "task_type": "sentence",
+      "reference": "don't ask me to carry an oily rag like that",
+      "native_hypothesis": "you",
+      "repair_hypothesis": "you",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_F01_Session1_0002",
+      "speaker_id": "F01",
+      "intelligibility": "dysarthric",
+      "task_type": "word",
+      "reference": "feed",
+      "native_hypothesis": "you",
+      "repair_hypothesis": "you",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_M01_Session1_0001",
+      "speaker_id": "M01",
+      "intelligibility": "dysarthric",
+      "task_type": "sentence",
+      "reference": "she had your dark suit in greasy wash water all year",
+      "native_hypothesis": "you",
+      "repair_hypothesis": "you",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_M01_Session1_0002",
+      "speaker_id": "M01",
+      "intelligibility": "dysarthric",
+      "task_type": "word",
+      "reference": "up",
+      "native_hypothesis": "you",
+      "repair_hypothesis": "you",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    }
+  ]
+}

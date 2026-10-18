@@ -1,0 +1,92 @@
+{
+  "timestamp_utc": "2026-10-18T06:26:05.304766+00:00",
+  "manifest_evaluated": "uaspeech_eval_full.jsonl",
+  "manifest_sha256": "de708b54aa1950d4319d0524d26d7fde0319b8f45d1ab3140524deb287fe945c",
+  "model_backbone": "openai/whisper-base.en",
+  "provenance": {
+    "git_commit": "25fccbed186949c6a4014f7d89743ee541219b80",
+    "code_bundle_sha256": "f7666bbc2ec277b27c684de9a7488c2470213abb0adff3900bac9c8504faadf0",
+    "artifact_checksum": "7cd7ddd66db9c914e772fbc170b510ddebdde79b0f4bdf090a54bbc2a239c6a7",
+    "platform": "Windows-10-10.0.22631-SP0",
+    "python_version": "3.10.22",
+    "torch_version": "2.5.1+cu121",
+    "cuda_device_name": "NVIDIA GeForce RTX 3050 Laptop GPU"
+  },
+  "overall_metrics": {
+    "num_utterances": 3,
+    "elapsed_seconds": 2.8,
+    "latency_ms_per_utterance": 933.29,
+    "baseline_corpus_wer": 33.33,
+    "repair_corpus_wer": 33.33,
+    "delta_wer": 0.0,
+    "werr_pct": 0.0,
+    "wilcoxon_p_value": 1.0,
+    "bootstrap_delta_mean": 0.0,
+    "bootstrap_95ci": [
+      0.0,
+      0.0
+    ],
+    "statistically_significant": false
+  },
+  "subgroups": {
+    "Very low": {
+      "num_utterances": 3,
+      "baseline_wer": 33.33,
+      "repair_wer": 33.33,
+      "delta_wer": 0.0,
+      "werr_pct": 0.0
+    }
+  },
+  "gate_diagnostics": {
+    "total_frames": 4500.0,
+    "accepted_frames": 0.0,
+    "acceptance_rate_pct": 0.0,
+    "total_utterances": 3.0,
+    "corrected_utterances": 0.0,
+    "harmed_utterances": 0.0,
+    "both_correct": 2.0,
+    "both_error": 1.0,
+    "unchanged_hypothesis_pct": 100.0,
+    "reasons_breakdown": {
+      "below_q_off_identity": 4500
+    }
+  },
+  "utterance_samples": [
+    {
+      "utterance_id": "UASPEECH_F05_000000",
+      "speaker_id": "F05",
+      "intelligibility": "Very low",
+      "task_type": "word",
+      "reference": "skyward",
+      "native_hypothesis": "skyward",
+      "repair_hypothesis": "skyward",
+      "native_wer": 0.0,
+      "repair_wer": 0.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "UASPEECH_F05_000001",
+      "speaker_id": "F05",
+      "intelligibility": "Very low",
+      "task_type": "word",
+      "reference": "whiskey",
+      "native_hypothesis": "whiskey",
+      "repair_hypothesis": "whiskey",
+      "native_wer": 0.0,
+      "repair_wer": 0.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "UASPEECH_F05_000002",
+      "speaker_id": "F05",
+      "intelligibility": "Very low",
+      "task_type": "word",
+      "reference": "write",
+      "native_hypothesis": "right",
+      "repair_hypothesis": "right",
+      "native_wer": 100.0,
+      "repair_wer": 100.0,
+      "exact_match": true
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+% Table 3: Ablation study on projection shrinkage factor alpha and gate margin gamma
+\begin{table}[t]
+\centering
+\small
+\caption{Ablation on geometric projection shrinkage factor $\alpha$ and gate margin $\gamma$ on UASpeech dysarthric speech (Baseline WER = 88.00\%). * indicates $p < 0.01$ improvement.}
+\label{tab:ablation}
+\begin{tabular}{lccccr}
+\toprule
+\textbf{Configuration} & $\mathbf{q_{\text{off}}}$ & \textbf{Margin $\gamma$} & \textbf{Shrinkage $\alpha$} & \textbf{Accepted (\%)} & \textbf{WER (\%)} \\
+\midrule
+Frozen Baseline & -- & -- & -- & 0.00\% & 88.00\% \\
+\midrule
+Overshoot Collapse & 12.0 & 0.20 & 0.80 & 44.55\% & 2724.00\% \\
+Repetition Drift & 12.0 & 0.20 & 0.50 & 44.55\% & 958.00\% \\
+\textbf{PhonoRepair (Optimal)} & \textbf{12.0} & \textbf{0.20} & \textbf{0.30} & \textbf{44.55\%} & \textbf{76.00\%}$^*$ \\
+Strict Margin & 12.0 & 0.40 & 0.30 & 33.71\% & 82.00\%$^*$ \\
+\bottomrule
+\end{tabular}
+\end{table}

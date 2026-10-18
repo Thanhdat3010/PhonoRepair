@@ -1,0 +1,92 @@
+{
+  "timestamp_utc": "2026-10-18T06:26:31.569438+00:00",
+  "manifest_evaluated": "torgo_eval_full.jsonl",
+  "manifest_sha256": "4cf10c3793413fe5398e0c187e41e9b7871b8de7e50c819453108a1779961b56",
+  "model_backbone": "openai/whisper-base.en",
+  "provenance": {
+    "git_commit": "25fccbed186949c6a4014f7d89743ee541219b80",
+    "code_bundle_sha256": "f7666bbc2ec277b27c684de9a7488c2470213abb0adff3900bac9c8504faadf0",
+    "artifact_checksum": "7cd7ddd66db9c914e772fbc170b510ddebdde79b0f4bdf090a54bbc2a239c6a7",
+    "platform": "Windows-10-10.0.22631-SP0",
+    "python_version": "3.10.22",
+    "torch_version": "2.5.1+cu121",
+    "cuda_device_name": "NVIDIA GeForce RTX 3050 Laptop GPU"
+  },
+  "overall_metrics": {
+    "num_utterances": 3,
+    "elapsed_seconds": 2.81,
+    "latency_ms_per_utterance": 938.06,
+    "baseline_corpus_wer": 66.67,
+    "repair_corpus_wer": 66.67,
+    "delta_wer": 0.0,
+    "werr_pct": 0.0,
+    "wilcoxon_p_value": 1.0,
+    "bootstrap_delta_mean": 0.0,
+    "bootstrap_95ci": [
+      0.0,
+      0.0
+    ],
+    "statistically_significant": false
+  },
+  "subgroups": {
+    "Control": {
+      "num_utterances": 3,
+      "baseline_wer": 66.67,
+      "repair_wer": 66.67,
+      "delta_wer": 0.0,
+      "werr_pct": 0.0
+    }
+  },
+  "gate_diagnostics": {
+    "total_frames": 4500.0,
+    "accepted_frames": 0.0,
+    "acceptance_rate_pct": 0.0,
+    "total_utterances": 3.0,
+    "corrected_utterances": 0.0,
+    "harmed_utterances": 0.0,
+    "both_correct": 2.0,
+    "both_error": 1.0,
+    "unchanged_hypothesis_pct": 100.0,
+    "reasons_breakdown": {
+      "below_q_off_identity": 4500
+    }
+  },
+  "utterance_samples": [
+    {
+      "utterance_id": "TORGO_FC01_000000",
+      "speaker_id": "FC01",
+      "intelligibility": "Control",
+      "task_type": "word",
+      "reference": "delta",
+      "native_hypothesis": "delta",
+      "repair_hypothesis": "delta",
+      "native_wer": 0.0,
+      "repair_wer": 0.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_FC01_000001",
+      "speaker_id": "FC01",
+      "intelligibility": "Control",
+      "task_type": "word",
+      "reference": "galore",
+      "native_hypothesis": "go lower",
+      "repair_hypothesis": "go lower",
+      "native_wer": 200.0,
+      "repair_wer": 200.0,
+      "exact_match": true
+    },
+    {
+      "utterance_id": "TORGO_FC01_000002",
+      "speaker_id": "FC01",
+      "intelligibility": "Control",
+      "task_type": "word",
+      "reference": "dark",
+      "native_hypothesis": "dark",
+      "repair_hypothesis": "dark",
+      "native_wer": 0.0,
+      "repair_wer": 0.0,
+      "exact_match": true
+    }
+  ]
+}
